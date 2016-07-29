@@ -93,7 +93,7 @@
 <meta property="og:description" content="一、系统日历事件和提醒事项简介跳转到的地方
 分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/EventKit_%E4%BA%8B%E4%BB%B6%E5%BA%93%E7%BB%93%E6%9E%84.png">
-<meta property="og:updated_time" content="2016-07-29T10:31:05.000Z">
+<meta property="og:updated_time" content="2016-07-29T10:37:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APP写入系统日历事件和提醒事项事件">
 <meta name="twitter:description" content="一、系统日历事件和提醒事项简介跳转到的地方
@@ -354,10 +354,7 @@
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/EventKit_%E4%BA%8B%E4%BB%B6%E5%BA%93%E7%BB%93%E6%9E%84.png" alt="eventkit_img1"></p>
 <div align="center">图示 1-1 事件库结构</div>
 
-
-
-
-
+ <a id="more"></a>
 <h2 id="二、代码实例解析"><a href="#二、代码实例解析" class="headerlink" title="二、代码实例解析"></a>二、代码实例解析</h2><p>日历事件和提醒事项都包含在  EventKit 库中，下面咱们以代码为例，逐步实现 “读写日历事件”、“读写提醒事项”、“调用iOS自带的日历事件界面”、“提醒事项中添加地理围栏”</p>
 <h3 id="读写日历事件"><a href="#读写日历事件" class="headerlink" title="读写日历事件"></a>读写日历事件</h3><p><a href="#jump">点击跳转</a></p>
 <p>日历事件是在<strong>EventKit</strong>中的，所以需要包含头文件</p>

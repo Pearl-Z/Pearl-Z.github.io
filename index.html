@@ -457,50 +457,16 @@
 
       
         
-          
-            <h2 id="一、系统日历事件和提醒事项简介"><a href="#一、系统日历事件和提醒事项简介" class="headerlink" title="一、系统日历事件和提醒事项简介"></a>一、系统日历事件和提醒事项简介</h2><p><span id="jump">跳转到的地方</span></p>
+          <h2 id="一、系统日历事件和提醒事项简介"><a href="#一、系统日历事件和提醒事项简介" class="headerlink" title="一、系统日历事件和提醒事项简介"></a>一、系统日历事件和提醒事项简介</h2><p><span id="jump">跳转到的地方</span></p>
 <p><strong>分析</strong>：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸，一口装水，一口沙子一样，这个缸就是上面提及的日历，水相当于事件，沙子相当于提醒。一户人家的院子里可以摆好多口缸，这个院子就相当于帐户，有两个默认帐户，一个是Local，一个是Other。帐户的类型，还可能有iCloud或Gmail帐号等，一般是邮箱附带的，所以就默认对应着该邮箱地址了。就像 大户人家的总管，管好每户的院子，还有每个院子里的缸一样，事件库直接管理所有的帐户和日历，还有日历下的事件或提醒。管理包括增加、修改、查询、删除（CURD）。</p>
 <p>事件库框架授权访问用户的 Calendar.app 和 Reminders.app 应用的信息。尽管是用两个不同的应用显示用户的日历和提醒数据，但确是同一个框架维护这份数据。同样地，存储这份数据的数据库叫做日历数据库，同时容纳日历和提醒信息。</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/EventKit_%E4%BA%8B%E4%BB%B6%E5%BA%93%E7%BB%93%E6%9E%84.png" alt="eventkit_img1"></p>
-<div align="center">图示 1-1 事件库结构</div>
-
-
-
-
-
-<h2 id="二、代码实例解析"><a href="#二、代码实例解析" class="headerlink" title="二、代码实例解析"></a>二、代码实例解析</h2><p>日历事件和提醒事项都包含在  EventKit 库中，下面咱们以代码为例，逐步实现 “读写日历事件”、“读写提醒事项”、“调用iOS自带的日历事件界面”、“提醒事项中添加地理围栏”</p>
-<h3 id="读写日历事件"><a href="#读写日历事件" class="headerlink" title="读写日历事件"></a>读写日历事件</h3><p><a href="#jump">点击跳转</a></p>
-<p>日历事件是在<strong>EventKit</strong>中的，所以需要包含头文件</p>
-<pre><code>#import &lt;EventKit/EventKit.h&gt;     
-</code></pre><hr>
-<p>其次，我们需要一个<strong>EKEventStore</strong>对象，来对用户的日历数据库进行获取、创建、编辑和删除事件的操作。</p>
-<pre><code>_eventStore = [[EKEventStore alloc] init];
-</code></pre><hr>
-<p>在iOS6.0以后，对日历事件和提醒事项进行操作，是需要用户进行授权的，所以，第一步需要得到用户的授权。<br>这里对授权出现的错误进行统一处理。</p>
-<pre><code>  // 处理错误信息
-- (BOOL)handleError:(NSError *)error granted:(BOOL)granted{
-    if (error) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;请求权限出错&quot; message:error.description preferredStyle:UIAlertControllerStyleAlert];                                                
-        [alertController addAction:[UIAlertAction actionWithTitle:@&quot;确定&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
-        return NO;
-    }
-
-    if (!granted) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;没有权限&quot; message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@&quot;确定&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        }]];                 
-        [self presentViewController:alertController animated:YES completion:nil];
-        return NO;
-    }
-
-    return YES;
-}
-</code></pre><hr>
-<p> 接下来，添加谓词Predicates，通常是要获得属于某一日期范围的事件。 EKEventStore 的 eventsMatchingPredicate: 方法获取属于你提供的谓词中指定的日期范围的所有事件。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"> // 获取一年内的事件</span><br><span class="line">- (void)getEvents &#123;</span><br><span class="line">    </span><br><span class="line">    // 适配iOS6.0以下设备</span><br><span class="line">    if ([self.eventStore respondsToSelector:@selector(requestAccessToEntityType:completion:)]) &#123;</span><br><span class="line">        // 请求日历操作的权限</span><br><span class="line">        [self.eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) &#123;</span><br><span class="line">            // 授权成功</span><br><span class="line">            if ([self handleError:error granted:granted]) &#123;</span><br><span class="line">                // 获取适当的日期（Get the appropriate calendar）x</span><br><span class="line">                NSCalendar *calendar = [NSCalendar currentCalendar];</span><br><span class="line">                </span><br><span class="line">                // 创建起始日期组件（Create the start date components）</span><br><span class="line">                NSDateComponents *oneDayAgoComponents = [[NSDateComponents alloc] init];</span><br><span class="line">                oneDayAgoComponents.day = -1;</span><br><span class="line">                NSDate *oneDayAgo = [calendar dateByAddingComponents:oneDayAgoComponents</span><br><span class="line">                                                              toDate:[NSDate date]</span><br><span class="line">                                                             options:0];</span><br><span class="line">                </span><br><span class="line">                // 创建结束日期组件（Create the end date components）</span><br><span class="line">                NSDateComponents *oneYearFromNowComponents = [[NSDateComponents alloc] init];</span><br><span class="line">                oneYearFromNowComponents.year = 1;</span><br><span class="line">                NSDate *oneYearFromNow = [calendar dateByAddingComponents:oneYearFromNowComponents</span><br><span class="line">                                                                   toDate:[NSDate date]</span><br><span class="line">                                                                  options:0];</span><br><span class="line">                </span><br><span class="line">                // 用事件库的实例方法创建谓词 (Create the predicate from the event store&apos;s instance method)</span><br><span class="line">                NSPredicate *predicate = [self.eventStore predicateForEventsWithStartDate:oneDayAgo</span><br><span class="line">                                                                                  endDate:oneYearFromNow</span><br><span class="line">                                                                                calendars:nil];</span><br><span class="line">                </span><br><span class="line">                // 获取所有匹配该谓词的事件(Fetch all events that match the predicate)</span><br><span class="line">                NSString *message = @&quot;&quot;;</span><br><span class="line">                NSArray *events = [self.eventStore  eventsMatchingPredicate:predicate];</span><br><span class="line">                for (EKEvent *event in events) &#123;</span><br><span class="line">                    NSLog(@&quot;方法1:获取事件%@&quot;,event.description);</span><br><span class="line">                    message = [message stringByAppendingString:[NSString stringWithFormat:@&quot;%@\n&quot;,event.title]];</span><br><span class="line">                &#125;</span><br><span class="line">                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;日历事件&quot; message:message preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">                [alertController addAction:[UIAlertAction actionWithTitle:@&quot;确定&quot; style:UIAlertActionStyleCancel handler:nil]];</span><br><span class="line">                [self presentViewController:alertController animated:YES completion:nil];</span><br><span class="line">                </span><br><span class="line">                </span><br><span class="line">                </span><br><span class="line">                //            [self.eventStore enumerateEventsMatchingPredicate:predicate usingBlock:^(EKEvent * _Nonnull event, BOOL * _Nonnull stop) &#123;</span><br><span class="line">                //                NSLog(@&quot;方法2:获取事件%@--%@&quot;,event.description,event.eventIdentifier);</span><br><span class="line">                //            &#125;];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">	</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+<div align = center>图示 1-1 事件库结构</div>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/04/APP写入系统日历事件和提醒事项事件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

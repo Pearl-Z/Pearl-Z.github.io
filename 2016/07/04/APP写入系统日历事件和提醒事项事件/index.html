@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img1.PNG">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img2.PNG">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img4.PNG">
-<meta property="og:updated_time" content="2016-08-01T08:08:54.000Z">
+<meta property="og:updated_time" content="2016-08-01T08:26:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APP写入系统日历事件和提醒事项事件">
 <meta name="twitter:description" content="系统日历事件和提醒事项简介分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸">
@@ -358,7 +358,7 @@
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img1.PNG" height="533" width="300"></p>
 <p>日历事件和提醒事项都包含在  EventKit 库中，下面咱们以代码为例，逐步实现 “<a href="#jump1">读写日历事件</a>”、“<a href="#jump2">读写提醒事项</a>”、“<a href="#jump3">调用iOS自带的日历事件界面</a>”、“<a href="#jump4">提醒事项中添加地理围栏</a>”。</p>
 <p><span id="jump1"> </span></p>
-<h3 id="读写日历事件"><a href="#读写日历事件" class="headerlink" title="读写日历事件"></a>读写日历事件</h3><td bgcolor="#7FFFD4"> 这里的背景色是：Aquamarine，  十六进制颜色值：#7FFFD4， rgb(127, 255, 212) </td>
+<h3 id="读写日历事件"><a href="#读写日历事件" class="headerlink" title="读写日历事件"></a>读写日历事件</h3><table><tr><td bgcolor="#7FFFD4">这里的背景色是：Aquamarine，  十六进制颜色值：#7FFFD4， rgb(127, 255, 212)</td></tr></table>
 
 <p>日历事件是在<code>EventKit</code>库中的，所以需要包含头文件</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">	<span class="meta">#import <span class="meta-string">&lt;EventKit/EventKit.h&gt;</span>   </span></span><br><span class="line">```   </span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">其次，我们需要一个**EKEventStore**对象，来对用户的日历数据库进行获取、创建、编辑和删除事件的操作。</span><br><span class="line"></span><br><span class="line">```objc</span><br><span class="line">	_eventStore = [[EKEventStore alloc] init];</span><br></pre></td></tr></table></figure>

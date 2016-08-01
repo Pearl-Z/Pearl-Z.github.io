@@ -84,23 +84,20 @@
 
 
 
-<meta name="description" content="系统日历事件和提醒事项简介跳转到的地方
-分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分">
+<meta name="description" content="系统日历事件和提醒事项简介分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸">
 <meta property="og:type" content="article">
 <meta property="og:title" content="APP写入系统日历事件和提醒事项事件">
 <meta property="og:url" content="http://yoursite.com/2016/06/04/APP写入系统日历事件和提醒事项事件/index.html">
 <meta property="og:site_name" content="谢琛舟的博客">
-<meta property="og:description" content="系统日历事件和提醒事项简介跳转到的地方
-分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分">
+<meta property="og:description" content="系统日历事件和提醒事项简介分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/EventKit_%E4%BA%8B%E4%BB%B6%E5%BA%93%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img1.PNG">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img2.PNG">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img4.PNG">
-<meta property="og:updated_time" content="2016-08-01T03:46:31.000Z">
+<meta property="og:updated_time" content="2016-08-01T03:53:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APP写入系统日历事件和提醒事项事件">
-<meta name="twitter:description" content="系统日历事件和提醒事项简介跳转到的地方
-分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分">
+<meta name="twitter:description" content="系统日历事件和提醒事项简介分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸">
 <meta name="twitter:image" content="http://o84zlfx0y.bkt.clouddn.com/EventKit_%E4%BA%8B%E4%BB%B6%E5%BA%93%E7%BB%93%E6%9E%84.png">
 
 
@@ -351,18 +348,17 @@
       
 
       
-        <h2 id="系统日历事件和提醒事项简介"><a href="#系统日历事件和提醒事项简介" class="headerlink" title="系统日历事件和提醒事项简介"></a>系统日历事件和提醒事项简介</h2><p><span id="jump">跳转到的地方</span></p>
-<p><strong>分析</strong>：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸，一口装水，一口沙子一样，这个缸就是上面提及的日历，水相当于事件，沙子相当于提醒。一户人家的院子里可以摆好多口缸，这个院子就相当于帐户，有两个默认帐户，一个是Local，一个是Other。帐户的类型，还可能有iCloud或Gmail帐号等，一般是邮箱附带的，所以就默认对应着该邮箱地址了。就像 大户人家的总管，管好每户的院子，还有每个院子里的缸一样，事件库直接管理所有的帐户和日历，还有日历下的事件或提醒。管理包括增加、修改、查询、删除（CURD）。</p>
+        <h2 id="系统日历事件和提醒事项简介"><a href="#系统日历事件和提醒事项简介" class="headerlink" title="系统日历事件和提醒事项简介"></a>系统日历事件和提醒事项简介</h2><p><strong>分析</strong>：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸，一口装水，一口沙子一样，这个缸就是上面提及的日历，水相当于事件，沙子相当于提醒。一户人家的院子里可以摆好多口缸，这个院子就相当于帐户，有两个默认帐户，一个是Local，一个是Other。帐户的类型，还可能有iCloud或Gmail帐号等，一般是邮箱附带的，所以就默认对应着该邮箱地址了。就像 大户人家的总管，管好每户的院子，还有每个院子里的缸一样，事件库直接管理所有的帐户和日历，还有日历下的事件或提醒。管理包括增加、修改、查询、删除（CURD）。</p>
 <p>事件库框架授权访问用户的 Calendar.app 和 Reminders.app 应用的信息。尽管是用两个不同的应用显示用户的日历和提醒数据，但确是同一个框架维护这份数据。同样地，存储这份数据的数据库叫做日历数据库，同时容纳日历和提醒信息。</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/EventKit_%E4%BA%8B%E4%BB%B6%E5%BA%93%E7%BB%93%E6%9E%84.png" alt="eventkit_img1"></p>
 <div align="center">图示 1-1 事件库结构</div>
 
  <a id="more"></a>
-<h2 id="代码实例解析"><a href="#代码实例解析" class="headerlink" title="代码实例解析"></a>代码实例解析</h2><p>所有的功能都附在源码上，先来看看有哪些功能吧。</p>
+<h2 id="代码实例解析"><a href="#代码实例解析" class="headerlink" title="代码实例解析"></a>代码实例解析</h2><p>所有的功能都附在<a href="#jump5">源码</a>上，先来看看有哪些功能吧。</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img1.PNG" alt="eventkit_img1"></p>
-<p>日历事件和提醒事项都包含在  EventKit 库中，下面咱们以代码为例，逐步实现 “读写日历事件”、“读写提醒事项”、“调用iOS自带的日历事件界面”、“提醒事项中添加地理围栏”</p>
-<h3 id="读写日历事件"><a href="#读写日历事件" class="headerlink" title="读写日历事件"></a>读写日历事件</h3><p><a href="#jump">点击跳转</a></p>
-<p>日历事件是在<code>EventKit</code>库中的，所以需要包含头文件</p>
+<p>日历事件和提醒事项都包含在  EventKit 库中，下面咱们以代码为例，逐步实现 <a href="#jump1">“读写日历事件”</a>、<a href="#jump2">“读写提醒事项”</a>、<a href="#jump3">“调用iOS自带的日历事件界面”</a>、<a href="#jump4">“提醒事项中添加地理围栏”</a>。</p>
+<p><span id="jump1"> </span></p>
+<h3 id="读写日历事件"><a href="#读写日历事件" class="headerlink" title="读写日历事件"></a>读写日历事件</h3><p>日历事件是在<code>EventKit</code>库中的，所以需要包含头文件</p>
 <pre><code>#import &lt;EventKit/EventKit.h&gt;     
 </code></pre><hr>
 <p>其次，我们需要一个<strong>EKEventStore</strong>对象，来对用户的日历数据库进行获取、创建、编辑和删除事件的操作。</p>
@@ -466,7 +462,8 @@
 
     }];
 }
-</code></pre><h3 id="读写提醒事项"><a href="#读写提醒事项" class="headerlink" title="读写提醒事项"></a>读写提醒事项</h3><p>提醒事项(EKReminder)和日历事件(EKEvent)都是继承<strong>EKCalendarItem</strong>，并且由<strong>EKEventStore</strong>统一管理，所以，提醒事项和日历事件的读写类似。</p>
+</code></pre><p><span id="jump2"> </span></p>
+<h3 id="读写提醒事项"><a href="#读写提醒事项" class="headerlink" title="读写提醒事项"></a>读写提醒事项</h3><p>提醒事项(EKReminder)和日历事件(EKEvent)都是继承<strong>EKCalendarItem</strong>，并且由<strong>EKEventStore</strong>统一管理，所以，提醒事项和日历事件的读写类似。</p>
 <pre><code>// 获取全部提醒事项
 - (void)getRemind{
 
@@ -529,7 +526,8 @@
     }];
 
 }
-</code></pre><h3 id="调用iOS自带的日历事件界面"><a href="#调用iOS自带的日历事件界面" class="headerlink" title="调用iOS自带的日历事件界面"></a>调用iOS自带的日历事件界面</h3><p>iOS自带的日历事件界面在<code>EventKitUI</code>库中。当然，使用系统的界面时，界面默认为英文。如果想切换语言，需要在<strong>info.plist</strong>里面添加 <strong>Localized resources can be mixed</strong> 值为 <strong>YES</strong>。</p>
+</code></pre><p><span id="jump3"> </span></p>
+<h3 id="调用iOS自带的日历事件界面"><a href="#调用iOS自带的日历事件界面" class="headerlink" title="调用iOS自带的日历事件界面"></a>调用iOS自带的日历事件界面</h3><p>iOS自带的日历事件界面在<code>EventKitUI</code>库中。当然，使用系统的界面时，界面默认为英文。如果想切换语言，需要在<strong>info.plist</strong>里面添加 <strong>Localized resources can be mixed</strong> 值为 <strong>YES</strong>。</p>
 <pre><code>#import &lt;EventKitUI/EventKitUI.h&gt;
 </code></pre><hr>
 <p>iOS自带的日历事件界面有两种，一种是展示界面(EKEventViewController)，另一种是编辑页面(EKEventEditViewController)。当然，你也可以将展示界面的<strong>allowsEditing</strong>属性设为<strong>YES</strong>，允许跳转到编辑页面，然后通过delegate获取用户操作行为。</p>
@@ -605,7 +603,8 @@
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action{
     [controller dismissViewControllerAnimated:YES completion:nil];
 }    
-</code></pre><h3 id="提醒事项中添加地理围栏"><a href="#提醒事项中添加地理围栏" class="headerlink" title="提醒事项中添加地理围栏"></a>提醒事项中添加地理围栏</h3><p>在添加闹钟(EKAlarm)的过程中，发现了一个有趣的东西，<strong>EKAlarm</strong>可以添加地理围栏，所以我对这个单独的功能进行了研究。<br>既然是地理位置的研究，首先咱们需要获取用户的当前位置。<br>定位需要用到<strong>CLLocationManager</strong>对象，该对象存在于 <code>CoreLocation</code>库中。</p>
+</code></pre><p><span id="jump4"> </span></p>
+<h3 id="提醒事项中添加地理围栏"><a href="#提醒事项中添加地理围栏" class="headerlink" title="提醒事项中添加地理围栏"></a>提醒事项中添加地理围栏</h3><p>在添加闹钟(EKAlarm)的过程中，发现了一个有趣的东西，<strong>EKAlarm</strong>可以添加地理围栏，所以我对这个单独的功能进行了研究。<br>既然是地理位置的研究，首先咱们需要获取用户的当前位置。<br>定位需要用到<strong>CLLocationManager</strong>对象，该对象存在于 <code>CoreLocation</code>库中。</p>
 <pre><code>#import &lt;CoreLocation/CoreLocation.h&gt;
 </code></pre><p>同样，定位涉及到用户隐私，需要用户授权。</p>
 <pre><code>// 请求地理位置权限
@@ -762,6 +761,7 @@ double transformLon(double x, double y)
 <p>来看看界面运行的效果</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img2.PNG" alt="eventkit_img1"></p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img4.PNG" alt="eventkit_img1"></p>
+<p><span id="jump1"> </span></p>
 <p>哈哈，大功告成，附上 <a href="https://github.com/Pearl-Z/CalendarRemindersDemo" target="_blank" rel="external">源码</a>.</p>
 
       

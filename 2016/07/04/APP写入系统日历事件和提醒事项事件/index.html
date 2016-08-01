@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img1.PNG">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img2.PNG">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img4.PNG">
-<meta property="og:updated_time" content="2016-08-01T07:43:00.000Z">
+<meta property="og:updated_time" content="2016-08-01T07:45:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APP写入系统日历事件和提醒事项事件">
 <meta name="twitter:description" content="系统日历事件和提醒事项简介分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸">
@@ -636,68 +636,8 @@ if([[UIDevice currentDevice].systemVersion doubleValue] &gt;= 8.0 &amp;&amp; [CL
     self.userLocation = locations.lastObject;
 }
 </code></pre><p>注意，此处使用<strong><cllocationmanagerdelegate></cllocationmanagerdelegate></strong>获取的用户坐标为地球坐标(即世界通用坐标)。由于天朝国情特殊，为安全考虑，为地图做了偏移，所以地球坐标画在中国地图上是不准确的，需要进行转化为火星坐标(即中国坐标)，画在地图上才准确。</p>
-<pre><code>// 地球坐标转火星坐标
-//--------------------------坐标转换开始-----------------------
-static const double pi = 3.14159265358979324;
-static const double a = 6378245.0;
-static const double ee = 0.00669342162296594323;
-
-static bool outOfChina(double lat, double lon);
-static double transformLat(double x, double y);
-static double transformLon(double x, double y);
-
-// World Geodetic System ==&gt; Mars Geodetic System
-static CLLocationCoordinate2D transformFromWGSCoord2MarsCoord(CLLocationCoordinate2D wgsCoordinate)
-{
-    double wgLat = wgsCoordinate.latitude;
-    double wgLon = wgsCoordinate.longitude;
-
-    if (outOfChina(wgLat, wgLon))
-    {
-        return wgsCoordinate;
-    }
-
-    double dLat = transformLat(wgLon - 105.0, wgLat - 35.0);
-    double dLon = transformLon(wgLon - 105.0, wgLat - 35.0);
-    double radLat = wgLat / 180.0 * pi;
-    double magic = sin(radLat);
-    magic = 1 - ee * magic * magic;
-    double sqrtMagic = sqrt(magic);
-    dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * pi);
-    dLon = (dLon * 180.0) / (a / sqrtMagic * cos(radLat) * pi);
-
-    CLLocationCoordinate2D marsCoordinate = {wgLat + dLat, wgLon + dLon};
-    return marsCoordinate;
-}
-
-bool outOfChina(double lat, double lon)
-{
-    if (lon &lt; 72.004 || lon &gt; 137.8347)
-        return true;
-    if (lat &lt; 0.8293 || lat &gt; 55.8271)
-        return true;
-    return false;
-}
-
-double transformLat(double x, double y)
-{
-    double ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * sqrt(fabs(x));
-    ret += (20.0 * sin(6.0 * x * pi) + 20.0 * sin(2.0 * x * pi)) * 2.0 / 3.0;
-    ret += (20.0 * sin(y * pi) + 40.0 * sin(y / 3.0 * pi)) * 2.0 / 3.0;
-    ret += (160.0 * sin(y / 12.0 * pi) + 320 * sin(y * pi / 30.0)) * 2.0 / 3.0;
-    return ret;
-}
-
-double transformLon(double x, double y)
-{
-    double ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * sqrt(fabs(x));
-    ret += (20.0 * sin(6.0 * x * pi) + 20.0 * sin(2.0 * x * pi)) * 2.0 / 3.0;
-    ret += (20.0 * sin(x * pi) + 40.0 * sin(x / 3.0 * pi)) * 2.0 / 3.0;
-    ret += (150.0 * sin(x / 12.0 * pi) + 300.0 * sin(x / 30.0 * pi)) * 2.0 / 3.0;
-    return ret;
-}
-//--------------------------坐标转换结束-----------------------
-</code></pre><p>接下来，咱们添加一个地理围栏的提醒事项，并利用mapView将用户当前位置和地理围栏展现出来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">// 地球坐标转火星坐标</span><br><span class="line">//--------------------------坐标转换开始-----------------------</span><br><span class="line">static const double pi = 3.14159265358979324;</span><br><span class="line">static const double a = 6378245.0;</span><br><span class="line">static const double ee = 0.00669342162296594323;</span><br><span class="line"></span><br><span class="line">static bool outOfChina(double lat, double lon);</span><br><span class="line">static double transformLat(double x, double y);</span><br><span class="line">static double transformLon(double x, double y);</span><br><span class="line"></span><br><span class="line">// World Geodetic System ==&gt; Mars Geodetic System</span><br><span class="line">static CLLocationCoordinate2D transformFromWGSCoord2MarsCoord(CLLocationCoordinate2D wgsCoordinate)</span><br><span class="line">&#123;</span><br><span class="line">    double wgLat = wgsCoordinate.latitude;</span><br><span class="line">    double wgLon = wgsCoordinate.longitude;</span><br><span class="line">    </span><br><span class="line">    if (outOfChina(wgLat, wgLon))</span><br><span class="line">    &#123;</span><br><span class="line">        return wgsCoordinate;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    double dLat = transformLat(wgLon - 105.0, wgLat - 35.0);</span><br><span class="line">    double dLon = transformLon(wgLon - 105.0, wgLat - 35.0);</span><br><span class="line">    double radLat = wgLat / 180.0 * pi;</span><br><span class="line">    double magic = sin(radLat);</span><br><span class="line">    magic = 1 - ee * magic * magic;</span><br><span class="line">    double sqrtMagic = sqrt(magic);</span><br><span class="line">    dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * pi);</span><br><span class="line">    dLon = (dLon * 180.0) / (a / sqrtMagic * cos(radLat) * pi);</span><br><span class="line">    </span><br><span class="line">    CLLocationCoordinate2D marsCoordinate = &#123;wgLat + dLat, wgLon + dLon&#125;;</span><br><span class="line">    return marsCoordinate;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool outOfChina(double lat, double lon)</span><br><span class="line">&#123;</span><br><span class="line">    if (lon &lt; 72.004 || lon &gt; 137.8347)</span><br><span class="line">        return true;</span><br><span class="line">    if (lat &lt; 0.8293 || lat &gt; 55.8271)</span><br><span class="line">        return true;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double transformLat(double x, double y)</span><br><span class="line">&#123;</span><br><span class="line">    double ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * sqrt(fabs(x));</span><br><span class="line">    ret += (20.0 * sin(6.0 * x * pi) + 20.0 * sin(2.0 * x * pi)) * 2.0 / 3.0;</span><br><span class="line">    ret += (20.0 * sin(y * pi) + 40.0 * sin(y / 3.0 * pi)) * 2.0 / 3.0;</span><br><span class="line">    ret += (160.0 * sin(y / 12.0 * pi) + 320 * sin(y * pi / 30.0)) * 2.0 / 3.0;</span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double transformLon(double x, double y)</span><br><span class="line">&#123;</span><br><span class="line">    double ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * sqrt(fabs(x));</span><br><span class="line">    ret += (20.0 * sin(6.0 * x * pi) + 20.0 * sin(2.0 * x * pi)) * 2.0 / 3.0;</span><br><span class="line">    ret += (20.0 * sin(x * pi) + 40.0 * sin(x / 3.0 * pi)) * 2.0 / 3.0;</span><br><span class="line">    ret += (150.0 * sin(x / 12.0 * pi) + 300.0 * sin(x / 30.0 * pi)) * 2.0 / 3.0;</span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br><span class="line">//--------------------------坐标转换结束-----------------------</span><br></pre></td></tr></table></figure>
+<p>接下来，咱们添加一个地理围栏的提醒事项，并利用mapView将用户当前位置和地理围栏展现出来。</p>
 <pre><code class="objc">
 <span class="comment">// 按钮点击，添加地理围栏提醒事项事件</span>
 - (<span class="keyword">void</span>)addBtnClick {

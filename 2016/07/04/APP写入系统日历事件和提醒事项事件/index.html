@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img1.PNG">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img2.PNG">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img4.PNG">
-<meta property="og:updated_time" content="2016-08-01T07:08:59.000Z">
+<meta property="og:updated_time" content="2016-08-01T07:43:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APP写入系统日历事件和提醒事项事件">
 <meta name="twitter:description" content="系统日历事件和提醒事项简介分析：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸">
@@ -698,48 +698,49 @@ double transformLon(double x, double y)
 }
 //--------------------------坐标转换结束-----------------------
 </code></pre><p>接下来，咱们添加一个地理围栏的提醒事项，并利用mapView将用户当前位置和地理围栏展现出来。</p>
-<pre><code>// 按钮点击，添加地理围栏提醒事项事件
-- (void)addBtnClick {
-    [self.eventStore requestAccessToEntityType:EKEntityTypeReminder completion:^(BOOL granted, NSError * _Nullable error) {
-        if ([self handleError:error granted:granted]) {
-            // 切回主线程
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (!_userLocation) {
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@&quot;还未能获取地理位置&quot; preferredStyle:UIAlertControllerStyleAlert];
-                    [alertController addAction:[UIAlertAction actionWithTitle:@&quot;确定&quot; style:UIAlertActionStyleCancel handler:nil]];
-                    [self presentViewController:alertController animated:YES completion:nil];
-                    return ;
+<pre><code class="objc">
+<span class="comment">// 按钮点击，添加地理围栏提醒事项事件</span>
+- (<span class="keyword">void</span>)addBtnClick {
+    [<span class="keyword">self</span>.eventStore requestAccessToEntityType:EKEntityTypeReminder completion:^(<span class="built_in">BOOL</span> granted, <span class="built_in">NSError</span> * _Nullable error) {
+        <span class="keyword">if</span> ([<span class="keyword">self</span> handleError:error granted:granted]) {
+            <span class="comment">// 切回主线程</span>
+            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^{
+                <span class="keyword">if</span> (!_userLocation) {
+                    <span class="built_in">UIAlertController</span> *alertController = [<span class="built_in">UIAlertController</span> alertControllerWithTitle:<span class="literal">nil</span> message:<span class="string">@"还未能获取地理位置"</span> preferredStyle:<span class="built_in">UIAlertControllerStyleAlert</span>];
+                    [alertController addAction:[<span class="built_in">UIAlertAction</span> actionWithTitle:<span class="string">@"确定"</span> style:<span class="built_in">UIAlertActionStyleCancel</span> handler:<span class="literal">nil</span>]];
+                    [<span class="keyword">self</span> presentViewController:alertController animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];
+                    <span class="keyword">return</span> ;
                 }
 
-                // 视图定位到当前位置
-                // 这里在高德地图上显示需要将获取的地球坐标转化为火星坐标(即中国专用坐标),否则会出现偏移
-                CLLocationCoordinate2D center = transformFromWGSCoord2MarsCoord(self.userLocation.coordinate);
-                MKCoordinateSpan span = MKCoordinateSpanMake(0.003,0.003);
-                MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
-                [self.mapView setRegion:region animated:YES];
+                <span class="comment">// 视图定位到当前位置</span>
+                <span class="comment">// 这里在高德地图上显示需要将获取的地球坐标转化为火星坐标(即中国专用坐标),否则会出现偏移</span>
+                CLLocationCoordinate2D center = transformFromWGSCoord2MarsCoord(<span class="keyword">self</span>.userLocation.coordinate);
+                <span class="built_in">MKCoordinateSpan</span> span = <span class="built_in">MKCoordinateSpanMake</span>(<span class="number">0.003</span>,<span class="number">0.003</span>);
+                <span class="built_in">MKCoordinateRegion</span> region = <span class="built_in">MKCoordinateRegionMake</span>(center, span);
+                [<span class="keyword">self</span>.mapView setRegion:region animated:<span class="literal">YES</span>];
 
-                // 地图上画圆圈
-                MKCircle * cirle = [MKCircle circleWithCenterCoordinate:transformFromWGSCoord2MarsCoord(self.userLocation.coordinate) radius:100];
-                [self.mapView addOverlay:cirle];
+                <span class="comment">// 地图上画圆圈</span>
+                <span class="built_in">MKCircle</span> * cirle = [<span class="built_in">MKCircle</span> circleWithCenterCoordinate:transformFromWGSCoord2MarsCoord(<span class="keyword">self</span>.userLocation.coordinate) radius:<span class="number">100</span>];
+                [<span class="keyword">self</span>.mapView addOverlay:cirle];
 
-                //创建一个提醒功能
-                EKReminder *reminder = [EKReminder reminderWithEventStore:self.eventStore];
-                reminder.title = @&quot;Pearl-Z : 离开地理围栏&quot;;
-                [reminder setCalendar:[self.eventStore defaultCalendarForNewReminders]];
-                EKAlarm *alarm = [EKAlarm new]; //添加一个闹钟
-                EKStructuredLocation *geo = [EKStructuredLocation locationWithTitle:@&quot;当前位置为中心，100米半径&quot;];
-                geo.geoLocation = [[CLLocation alloc] initWithLatitude:self.userLocation.coordinate.latitude longitude:self.userLocation.coordinate.longitude];
-                geo.radius = 100;
+                <span class="comment">//创建一个提醒功能</span>
+                EKReminder *reminder = [EKReminder reminderWithEventStore:<span class="keyword">self</span>.eventStore];
+                reminder.title = <span class="string">@"Pearl-Z : 离开地理围栏"</span>;
+                [reminder setCalendar:[<span class="keyword">self</span>.eventStore defaultCalendarForNewReminders]];
+                EKAlarm *alarm = [EKAlarm new]; <span class="comment">//添加一个闹钟</span>
+                EKStructuredLocation *geo = [EKStructuredLocation locationWithTitle:<span class="string">@"当前位置为中心，100米半径"</span>];
+                geo.geoLocation = [[CLLocation alloc] initWithLatitude:<span class="keyword">self</span>.userLocation.coordinate.latitude longitude:<span class="keyword">self</span>.userLocation.coordinate.longitude];
+                geo.radius = <span class="number">100</span>;
                 alarm.structuredLocation = geo;
                 alarm.proximity = EKAlarmProximityLeave;
                 [reminder addAlarm:alarm];
 
-                // 显示创建结果
-                NSError *err;
-                BOOL result = [self.eventStore saveReminder:reminder commit:YES error:&amp;err];
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@&quot;%@创建结果&quot;,reminder.title] message:[NSString stringWithFormat:@&quot;result:%@\nerror:%@&quot;,result?@&quot;成功&quot;:@&quot;失败&quot;,err] preferredStyle:UIAlertControllerStyleAlert];
-                [alertController addAction:[UIAlertAction actionWithTitle:@&quot;确定&quot; style:UIAlertActionStyleCancel handler:nil]];
-                [self presentViewController:alertController animated:YES completion:nil];
+                <span class="comment">// 显示创建结果</span>
+                <span class="built_in">NSError</span> *err;
+                <span class="built_in">BOOL</span> result = [<span class="keyword">self</span>.eventStore saveReminder:reminder commit:<span class="literal">YES</span> error:&amp;err];
+                <span class="built_in">UIAlertController</span> *alertController = [<span class="built_in">UIAlertController</span> alertControllerWithTitle:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@创建结果"</span>,reminder.title] message:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"result:%@\nerror:%@"</span>,result?<span class="string">@"成功"</span>:<span class="string">@"失败"</span>,err] preferredStyle:<span class="built_in">UIAlertControllerStyleAlert</span>];
+                [alertController addAction:[<span class="built_in">UIAlertAction</span> actionWithTitle:<span class="string">@"确定"</span> style:<span class="built_in">UIAlertActionStyleCancel</span> handler:<span class="literal">nil</span>]];
+                [<span class="keyword">self</span> presentViewController:alertController animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];
 
             });
 
@@ -747,17 +748,18 @@ double transformLon(double x, double y)
     }];
 }
 
-#pragma mark - MKMapView delegate
-// 绘制路线时就会调用(添加遮盖时就会调用)
-- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id&lt;MKOverlay&gt;)overlay
+<span class="meta">#pragma mark - MKMapView delegate</span>
+<span class="comment">// 绘制路线时就会调用(添加遮盖时就会调用)</span>
+- (<span class="built_in">MKOverlayRenderer</span> *)mapView:(<span class="built_in">MKMapView</span> *)mapView rendererForOverlay:(<span class="keyword">id</span>&lt;<span class="built_in">MKOverlay</span>&gt;)overlay
 {
-    MKCircleRenderer *circle = [[MKCircleRenderer alloc] initWithCircle:(MKCircle *)overlay];
-    circle.lineWidth = 2;
-    circle.fillColor = [UIColor colorWithRed:255/255.0 green:82/255.0 blue:85/255.0 alpha:0.3];
-    circle.strokeColor = [UIColor colorWithRed:255/255.0 green:82/255.0 blue:85/255.0 alpha:1.0];
-    return circle;
+    <span class="built_in">MKCircleRenderer</span> *circle = [[<span class="built_in">MKCircleRenderer</span> alloc] initWithCircle:(<span class="built_in">MKCircle</span> *)overlay];
+    circle.lineWidth = <span class="number">2</span>;
+    circle.fillColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">255</span>/<span class="number">255.0</span> green:<span class="number">82</span>/<span class="number">255.0</span> blue:<span class="number">85</span>/<span class="number">255.0</span> alpha:<span class="number">0.3</span>];
+    circle.strokeColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">255</span>/<span class="number">255.0</span> green:<span class="number">82</span>/<span class="number">255.0</span> blue:<span class="number">85</span>/<span class="number">255.0</span> alpha:<span class="number">1.0</span>];
+    <span class="keyword">return</span> circle;
 }
-</code></pre><hr>
+</code></pre>
+<hr>
 <p>来看看界面运行的效果</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img2.PNG" height="533" width="300" style="float:left;margin-right:50px"></p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog1_app_img4.PNG" height="533" width="300"></p>

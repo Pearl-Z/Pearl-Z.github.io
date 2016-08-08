@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="iOS动画" />
 
 
 
@@ -84,15 +84,42 @@
 
 
 
-<meta name="description" content="追求极致用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="谢琛舟的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="CoreAnimation 介绍CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包含图形绘制，投影，动画的Objective–C类集合。它通过开发人员所熟悉的应用程序套件和Cocoa Touch视图架构的抽象分层模式，同时使用先进的合作效果提供了一套流畅的动画。
+
+ CoreAnimation架构图 
+
+
+CoreAnimation类有以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="\< iOS动画开发一 \> iOS核心动画(QuartzCore框架)示例及封装">
+<meta property="og:url" content="http://yoursite.com/2016/08/01/< iOS动画开发一 >iOS核心动画示例及封装/index.html">
 <meta property="og:site_name" content="谢琛舟的博客">
-<meta property="og:description" content="追求极致用户体验">
+<meta property="og:description" content="CoreAnimation 介绍CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包含图形绘制，投影，动画的Objective–C类集合。它通过开发人员所熟悉的应用程序套件和Cocoa Touch视图架构的抽象分层模式，同时使用先进的合作效果提供了一套流畅的动画。
+
+ CoreAnimation架构图 
+
+
+CoreAnimation类有以">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img1.png">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img3.png">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img5.png">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img2.png">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img4.png">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif1.gif">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif2.gif">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif3.gif">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif4.gif">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif5.gif">
+<meta property="og:updated_time" content="2016-08-08T09:31:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="谢琛舟的博客">
-<meta name="twitter:description" content="追求极致用户体验">
+<meta name="twitter:title" content="\< iOS动画开发一 \> iOS核心动画(QuartzCore框架)示例及封装">
+<meta name="twitter:description" content="CoreAnimation 介绍CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包含图形绘制，投影，动画的Objective–C类集合。它通过开发人员所熟悉的应用程序套件和Cocoa Touch视图架构的抽象分层模式，同时使用先进的合作效果提供了一套流畅的动画。
+
+ CoreAnimation架构图 
+
+
+CoreAnimation类有以">
+<meta name="twitter:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img1.png">
 
 
 
@@ -113,9 +140,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/01/< iOS动画开发一 >iOS核心动画示例及封装/"/>
 
-  <title> 谢琛舟的博客 </title>
+  <title> \< iOS动画开发一 \> iOS核心动画(QuartzCore框架)示例及封装 | 谢琛舟的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,9 +173,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -275,9 +300,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -297,10 +322,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/08/01/< iOS动画开发一 >iOS核心动画示例及封装/" itemprop="url">
-                  \< iOS动画开发一 \> iOS核心动画(QuartzCore框架)示例及封装
-                </a>
+                \< iOS动画开发一 \> iOS核心动画(QuartzCore框架)示例及封装
               
             
           </h1>
@@ -347,9 +369,7 @@
       
 
       
-        
-          
-            <h1 id="CoreAnimation-介绍"><a href="#CoreAnimation-介绍" class="headerlink" title="CoreAnimation 介绍"></a>CoreAnimation 介绍</h1><p>CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包含图形绘制，投影，动画的Objective–C类集合。它通过开发人员所熟悉的应用程序套件和Cocoa Touch视图架构的抽象分层模式，同时使用先进的合作效果提供了一套流畅的动画。</p>
+        <h1 id="CoreAnimation-介绍"><a href="#CoreAnimation-介绍" class="headerlink" title="CoreAnimation 介绍"></a>CoreAnimation 介绍</h1><p>CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包含图形绘制，投影，动画的Objective–C类集合。它通过开发人员所熟悉的应用程序套件和Cocoa Touch视图架构的抽象分层模式，同时使用先进的合作效果提供了一套流畅的动画。</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_img1.png" alt=""></p>
 <div align="center"> CoreAnimation架构图 </div>
 
@@ -574,16 +594,19 @@
 <li><a href="http://blog.163.com/soyo_gogogo/blog/static/171414077201605101618476/" target="_blank" rel="external">iOS上的粒子动画(CAEmitterLayer)</a></li>
 </ul>
 
-          
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -591,125 +614,51 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/07/04/APP写入系统日历事件和提醒事项事件/" rel="next" title="APP写入系统日历事件和提醒事项事件">
+                <i class="fa fa-chevron-left"></i> APP写入系统日历事件和提醒事项事件
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/07/04/APP写入系统日历事件和提醒事项事件/" itemprop="url">
-                  APP写入系统日历事件和提醒事项事件
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-04T12:15:29+08:00" content="2016-07-04">
-              2016-07-04
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/04/APP写入系统日历事件和提醒事项事件/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/04/APP写入系统日历事件和提醒事项事件/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="系统日历事件和提醒事项简介"><a href="#系统日历事件和提醒事项简介" class="headerlink" title="系统日历事件和提醒事项简介"></a>系统日历事件和提醒事项简介</h2><p><strong>分析</strong>：事件提醒开发包（EventKit）由事件库、事件源、日历和事件/提醒组成，他们的关系是：事件库用于直接操作日历数据库，日历数据库中的数据按事件源、日历和事件/提醒三级进行分类组织。每个事件源对应一个准帐户，该帐户下可以有多个日历，日历分两类，一类是用于存储事件的日历，一类是用于存储提醒的日历。这里所说的存储，实际就是分类，反过来的，根据子项对父项进行分类。就如两口缸，一口装水，一口沙子一样，这个缸就是上面提及的日历，水相当于事件，沙子相当于提醒。一户人家的院子里可以摆好多口缸，这个院子就相当于帐户，有两个默认帐户，一个是Local，一个是Other。帐户的类型，还可能有iCloud或Gmail帐号等，一般是邮箱附带的，所以就默认对应着该邮箱地址了。就像 大户人家的总管，管好每户的院子，还有每个院子里的缸一样，事件库直接管理所有的帐户和日历，还有日历下的事件或提醒。管理包括增加、修改、查询、删除（CURD）。</p>
-<p>事件库框架授权访问用户的 Calendar.app 和 Reminders.app 应用的信息。尽管是用两个不同的应用显示用户的日历和提醒数据，但确是同一个框架维护这份数据。同样地，存储这份数据的数据库叫做日历数据库，同时容纳日历和提醒信息。</p>
-<p><img src="http://o84zlfx0y.bkt.clouddn.com/EventKit_%E4%BA%8B%E4%BB%B6%E5%BA%93%E7%BB%93%E6%9E%84.png" alt="eventkit_img1"></p>
-<div align = center>图示 1-1 事件库结构</div>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/04/APP写入系统日历事件和提醒事项事件/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/08/01/< iOS动画开发一 >iOS核心动画示例及封装/"
+     data-title="\< iOS动画开发一 \> iOS核心动画(QuartzCore框架)示例及封装"
+     data-content=""
+     data-url="http://yoursite.com/2016/08/01/< iOS动画开发一 >iOS核心动画示例及封装/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -717,6 +666,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/01/< iOS动画开发一 >iOS核心动画示例及封装/"
+           data-title="\< iOS动画开发一 \> iOS核心动画(QuartzCore框架)示例及封装" data-url="http://yoursite.com/2016/08/01/< iOS动画开发一 >iOS核心动画示例及封装/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -736,8 +693,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -802,6 +768,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CoreAnimation-介绍"><span class="nav-number">1.</span> <span class="nav-text">CoreAnimation 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CAAnimation动画"><span class="nav-number">2.</span> <span class="nav-text">CAAnimation动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CATransition"><span class="nav-number">2.1.</span> <span class="nav-text">CATransition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAPropertyAnimation"><span class="nav-number">2.2.</span> <span class="nav-text">CAPropertyAnimation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CABasicAnimation"><span class="nav-number">2.2.1.</span> <span class="nav-text">CABasicAnimation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAKeyframeAnimation"><span class="nav-number">2.2.2.</span> <span class="nav-text">CAKeyframeAnimation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAAnimationGroup"><span class="nav-number">2.3.</span> <span class="nav-text">CAAnimationGroup</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#粒子动画"><span class="nav-number">3.</span> <span class="nav-text">粒子动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#layer隐式动画"><span class="nav-number">4.1.</span> <span class="nav-text">layer隐式动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CADisplaylink"><span class="nav-number">4.2.</span> <span class="nav-text">CADisplaylink</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于对CoreAnimation的示例以及封装"><span class="nav-number">5.</span> <span class="nav-text">关于对CoreAnimation的示例以及封装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">6.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -898,6 +875,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

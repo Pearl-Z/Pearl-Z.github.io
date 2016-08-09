@@ -104,7 +104,7 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif5.gif">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif6.gif-small">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif7.gif-small">
-<meta property="og:updated_time" content="2016-08-09T09:05:47.000Z">
+<meta property="og:updated_time" content="2016-08-09T09:21:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="< iOS动画开发一 > iOS核心动画(QuartzCore框架)示例及封装">
 <meta name="twitter:description" content="CoreAnimation 介绍动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
@@ -760,8 +760,13 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_gif7.gif-small" height="533" width="300"></p>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="layer隐式动画"><a href="#layer隐式动画" class="headerlink" title="layer隐式动画"></a>layer隐式动画</h2><p>每一个<strong>UIView</strong>都默认关联着一个<strong>CALayer</strong>，我们成这个<strong>layer</strong>为<strong>root layer</strong><br>所有的<strong>非root layer</strong>都存在默认的隐私动画，隐式动画默认为0.25秒。<br>对<strong>非root layer</strong>的部分属性进行修改时，会触发隐式动画。如果想去掉动画效果，可以加上以下代码：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">CATransaction</span> begin];</span><br><span class="line">[<span class="built_in">CATransaction</span> setDisableActions:<span class="literal">YES</span>];</span><br><span class="line">[<span class="built_in">CATransaction</span> commit];</span><br></pre></td></tr></table></figure>
-<h2 id="CADisplaylink"><a href="#CADisplaylink" class="headerlink" title="CADisplaylink"></a>CADisplaylink</h2><p><span id="jump1"> </span></p>
-<h1 id="关于对CoreAnimation的示例以及封装"><a href="#关于对CoreAnimation的示例以及封装" class="headerlink" title="关于对CoreAnimation的示例以及封装"></a>关于对CoreAnimation的示例以及封装</h1><h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
+<h2 id="CADisplaylink"><a href="#CADisplaylink" class="headerlink" title="CADisplaylink"></a>CADisplaylink</h2><p>iOS屏幕刷新的帧率为59.98帧/秒，若想展示流畅的动画，可以利用<strong>CADisplaylink</strong>，每一帧都执行一次某个函数来达到流畅的动画效果。</p>
+<p><strong>CADisplaylink</strong> 与 <strong>NSTimer</strong> 有什么不同 ？</p>
+<p><strong>NSTimer</strong>的精确度就显得低了点，比如<strong>NSTimer</strong>的触发时间到的时候，<strong>runloop</strong>如果在阻塞状态，触发时间就会推迟到下一个<strong>runloop</strong>周期。并且 <strong>NSTimer</strong>新增了<strong>tolerance</strong>属性，让用户可以设置可以容忍的触发的时间的延迟范围。</p>
+<p><strong>CADisplaylink</strong>使用场合相对专一，适合做UI的不停重绘，比如自定义动画引擎或者视频播放的渲染。<strong>NSTimer</strong>的使用范围要广泛的多，各种需要单次或者循环定时处理的任务都可以使用。在UI相关的动画或者显示内容使用 <strong>CADisplaylink</strong>比起用<strong>NSTimer</strong>的好处就是我们不需要在格外关心屏幕的刷新频率了，因为它本身就是跟屏幕刷新同步的。</p>
+<p><span id="jump1"> </span></p>
+<h1 id="关于对CoreAnimation的示例以及封装"><a href="#关于对CoreAnimation的示例以及封装" class="headerlink" title="关于对CoreAnimation的示例以及封装"></a>关于对CoreAnimation的示例以及封装</h1><p>由于CoreAnimation使用起来配置相当繁琐，而且不好记忆，所以我将CoreAnimation的用的最常用的一些动画进行了封装，能够一个函数搞定一个动画效果，能够满足大部分的核心动画需求。有兴趣的同学可以<strong><a href="https://github.com/Pearl-Z/ZZCoreAnimationDemo" target="_blank" rel="external">点击这里查看本文相关源代码</a></strong>。</p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
 <li><a href="http://blog.csdn.net/u011700462/article/details/37540709" target="_blank" rel="external">CAKeyframeAnimation</a></li>
 <li><a href="http://blog.163.com/soyo_gogogo/blog/static/171414077201605101618476/" target="_blank" rel="external">iOS上的粒子动画(CAEmitterLayer)</a></li>
 <li><a href="http://www.cocoachina.com/bbs/read.php?tid=84461" target="_blank" rel="external">【老狼推荐】核心动画编程指南</a></li>

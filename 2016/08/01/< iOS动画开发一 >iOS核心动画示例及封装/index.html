@@ -104,7 +104,7 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif5.gif">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif6.gif-small">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif7.gif-small">
-<meta property="og:updated_time" content="2016-08-09T08:23:26.000Z">
+<meta property="og:updated_time" content="2016-08-09T09:05:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="< iOS动画开发一 > iOS核心动画(QuartzCore框架)示例及封装">
 <meta name="twitter:description" content="CoreAnimation 介绍动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
@@ -626,13 +626,78 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <p>在解答这个问题之前，需要补充一个概念：</p>
 <p><strong>齐次矩阵</strong>：所谓齐次坐标就是将一个原本是n维的[向量]用一个n+1维向量来表示。许多图形应用涉及到[几何变换]，主要包括平移、旋转、缩放。那么形变时就可以转换为矩阵相加相乘来做，这样可以减少运算量，提高效率。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="built_in">CATransform3D</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">CGFloat</span> m11, m12, m13, m14;</span><br><span class="line">  <span class="built_in">CGFloat</span> m21, m22, m23, m24;</span><br><span class="line">  <span class="built_in">CGFloat</span> m31, m32, m33, m34;</span><br><span class="line">  <span class="built_in">CGFloat</span> m41, m42, m43, m44;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="built_in">CATransform3D</span> <span class="built_in">CATransform3D</span>;</span><br></pre></td></tr></table></figure>
-<p>由此看出，<strong>transform</strong>是一个四维数组，支持三维的变换。利用CATransform3D提供的函数操作矩阵运算，达到平移、旋转、缩放的效果。<br>常用的<strong>CATransform3D</strong>函数：</p>
+<p>由此看出，<strong>transform</strong>是一个4<em>4矩阵，支持三维的变换。利用CATransform3D提供的函数操作矩阵运算，达到平移、旋转、缩放的效果。<br>所有的<em>*CATransform3D</em></em>函数说明：</p>
+<table>
+<thead>
+<tr>
+<th>CATransform3D函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CATransform3DIdentity</td>
+<td>常量，未处理过的默认的CATransform3D，其值为 [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1]</td>
+</tr>
+<tr>
+<td>CATransform3DIsIdentity (CATransform3D t)</td>
+<td>判断是否为 CATransform3DIdentity</td>
+</tr>
+<tr>
+<td>CATransform3DEqualToTransform (CATransform3D a, CATransform3D b)</td>
+<td>判断两个CATransform3D是否相等</td>
+</tr>
+<tr>
+<td>CATransform3DMakeTranslation (CGFloat tx, CGFloat ty, CGFloat tz)</td>
+<td>偏移，tx、ty、tz分别为x轴、y轴、z轴的偏移值</td>
+</tr>
+<tr>
+<td>CATransform3DMakeScale (CGFloat sx, CGFloat sy, CGFloat sz)</td>
+<td>缩放，sx、sy、sz分别为x轴、y轴、z轴的缩放值</td>
+</tr>
+<tr>
+<td>CATransform3DMakeRotation (CGFloat angle, CGFloat x, CGFloat y, CGFloat z)</td>
+<td>旋转，angle为旋转的弧度，点(0,0,0)和(x,y,z)的连线确定了旋转轴</td>
+</tr>
+<tr>
+<td>CATransform3DTranslate (CATransform3D t, CGFloat tx, CGFloat ty, CGFloat tz)</td>
+<td>偏移，效果会叠加</td>
+</tr>
+<tr>
+<td>CATransform3DScale (CATransform3D t, CGFloat sx, CGFloat sy, CGFloat sz)</td>
+<td>缩放，效果会叠加</td>
+</tr>
+<tr>
+<td>CATransform3DRotate (CATransform3D t, CGFloat angle, CGFloat x, CGFloat y, CGFloat z)</td>
+<td>旋转，效果会叠加</td>
+</tr>
+<tr>
+<td>CATransform3DConcat (CATransform3D a, CATransform3D b)</td>
+<td>合并两个CATransform3D</td>
+</tr>
+<tr>
+<td>CATransform3DInvert (CATransform3D t)</td>
+<td>翻转</td>
+</tr>
+<tr>
+<td>CATransform3DMakeAffineTransform (CGAffineTransform m)</td>
+<td>CGAffineTransform 转 CATransform3D</td>
+</tr>
+<tr>
+<td>CATransform3DIsAffine (CATransform3D t)</td>
+<td>CATransform3D 能否转 CGAffineTransform</td>
+</tr>
+<tr>
+<td>CATransform3DGetAffineTransform (CATransform3D t)</td>
+<td>CATransform3D 转 CGAffineTransform</td>
+</tr>
+</tbody>
+</table>
 <p>如果形变后想恢复可使用</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.transform = <span class="built_in">CATransform3DIdentity</span>;</span><br></pre></td></tr></table></figure>
-<p>另外，如果只是涉及到2D坐标系的变换，可以使用<strong>CGAffineTransform</strong>函数，更加方便快速。<br>而且<strong>CALayer</strong>专门为2D转换读写提供了2个函数:</p>
+<p>另外，如果只是涉及到2D坐标系的变换，可以使用<strong>CGAffineTransform</strong>函数，更加方便快速。这里<strong>CGAffineTransform</strong>是一个3<em>3矩阵，其用法与<strong>CATransform3D</strong>类似，在此不再赘述。<br>而且<em>*CALayer</em></em>专门为2D转换读写提供了2个函数:</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Convenience methods for accessing the `transform' property as an</span><br><span class="line"> * affine transform. */</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CGAffineTransform</span>)affineTransform;</span><br><span class="line">- (<span class="keyword">void</span>)setAffineTransform:(<span class="built_in">CGAffineTransform</span>)m;</span><br></pre></td></tr></table></figure>
-<p>关于矩阵的运算，有兴趣的同学可以看看<strong><a href="https://developer.apple.com/reference/coregraphics/cgaffinetransform" target="_blank" rel="external">这里</a></strong>。</p>
-<p>常用的<strong>CGAffineTransform</strong>函数：</p>
+<p>关于矩阵的运算，有兴趣的同学可以看看<strong><a href="https://developer.apple.com/reference/coregraphics/cgaffinetransform" target="_blank" rel="external">这里(CGAffineTransform运算原理)</a></strong>。  </p>
 <h3 id="基本动画-CABasicAnimation"><a href="#基本动画-CABasicAnimation" class="headerlink" title="基本动画(CABasicAnimation)"></a>基本动画(CABasicAnimation)</h3><p>基本动画，随着动画的进行，在长度为<strong>duration</strong>的持续时间内，<strong>keyPath</strong>相应的属性值从<strong>fromValue</strong>渐渐地变为<strong>toValue</strong>。</p>
 <p>来看看示例运行效果：</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_gif2.gif" height="533" width="300"></p>

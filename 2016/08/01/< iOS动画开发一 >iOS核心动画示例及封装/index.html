@@ -103,8 +103,9 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif4.gif">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif5.gif">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif6.gif-small">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img6.jpg">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif7.gif-small">
-<meta property="og:updated_time" content="2016-08-09T10:02:57.000Z">
+<meta property="og:updated_time" content="2016-08-09T11:40:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="< iOS动画开发一 > iOS核心动画(QuartzCore框架)示例及封装">
 <meta name="twitter:description" content="CoreAnimation 介绍动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
@@ -758,19 +759,184 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">CGPoint</span> fromPoint = <span class="keyword">self</span>.imageLayer.position;</span><br><span class="line"><span class="built_in">CGPoint</span> toPoint = <span class="built_in">CGPointMake</span>(<span class="number">280</span> , fromPoint.y + <span class="number">300</span>);</span><br><span class="line"><span class="comment">// 创建不断改变CALayer的position属性的属性动画</span></span><br><span class="line"><span class="built_in">CABasicAnimation</span>* moveAnim = [<span class="built_in">CABasicAnimation</span></span><br><span class="line">                              animationWithKeyPath:<span class="string">@"position"</span>];</span><br><span class="line"><span class="comment">// 设置动画开始的属性值</span></span><br><span class="line">moveAnim.fromValue = [<span class="built_in">NSValue</span> valueWithCGPoint:fromPoint];</span><br><span class="line"><span class="comment">// 设置动画结束的属性值</span></span><br><span class="line">moveAnim.toValue = [<span class="built_in">NSValue</span> valueWithCGPoint:toPoint];</span><br><span class="line">moveAnim.removedOnCompletion = <span class="literal">YES</span>;</span><br><span class="line"><span class="comment">// 创建不断改变CALayer的transform属性的属性动画</span></span><br><span class="line"><span class="built_in">CABasicAnimation</span>* transformAnim = [<span class="built_in">CABasicAnimation</span></span><br><span class="line">                                   animationWithKeyPath:<span class="string">@"transform"</span>];</span><br><span class="line"><span class="built_in">CATransform3D</span> fromValue = <span class="keyword">self</span>.imageLayer.transform;</span><br><span class="line"><span class="comment">// 设置动画开始的属性值</span></span><br><span class="line">transformAnim.fromValue = [<span class="built_in">NSValue</span> valueWithCATransform3D: fromValue];</span><br><span class="line"><span class="comment">// 创建缩放为X、Y两个方向上缩放为0.5的变换矩阵</span></span><br><span class="line"><span class="built_in">CATransform3D</span> scaleValue = <span class="built_in">CATransform3DScale</span>(fromValue , <span class="number">0.5</span> , <span class="number">0.5</span>, <span class="number">1</span>);</span><br><span class="line"><span class="comment">// 绕Z轴旋转180度的变换矩阵</span></span><br><span class="line"><span class="built_in">CATransform3D</span> rotateValue = <span class="built_in">CATransform3DRotate</span>(fromValue, M_PI , <span class="number">0</span> , <span class="number">0</span> , <span class="number">1</span>);</span><br><span class="line"><span class="comment">// 计算两个变换矩阵的和</span></span><br><span class="line"><span class="built_in">CATransform3D</span> toValue = <span class="built_in">CATransform3DConcat</span>(scaleValue, rotateValue);</span><br><span class="line"><span class="comment">// 设置动画技术的属性值</span></span><br><span class="line">transformAnim.toValue = [<span class="built_in">NSValue</span> valueWithCATransform3D:toValue];</span><br><span class="line"><span class="comment">// 动画效果累加</span></span><br><span class="line">transformAnim.cumulative = <span class="literal">YES</span>;</span><br><span class="line"><span class="comment">// 动画重复执行2次，旋转360度</span></span><br><span class="line">transformAnim.repeatCount = <span class="number">2</span>;</span><br><span class="line">transformAnim.duration = <span class="number">3</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 位移、缩放、旋转组合起来执行</span></span><br><span class="line"><span class="comment">// 为imageLayer添加动画</span></span><br><span class="line"><span class="built_in">CAAnimationGroup</span> *group = [[<span class="built_in">CAAnimationGroup</span> alloc] init];</span><br><span class="line">group.animations = @[moveAnim,transformAnim];</span><br><span class="line">group.duration = moveAnim.duration + transformAnim.duration;</span><br><span class="line">group.removedOnCompletion = <span class="literal">NO</span>;</span><br><span class="line">group.fillMode = kCAFillModeBoth;</span><br><span class="line">[<span class="keyword">self</span>.imageLayer addAnimation:group forKey:<span class="string">@"ZZAnimationGroup"</span>];</span><br></pre></td></tr></table></figure>
 <h1 id="粒子动画"><a href="#粒子动画" class="headerlink" title="粒子动画"></a>粒子动画</h1><h2 id="CAEmitterLayer与CAEmitterCell"><a href="#CAEmitterLayer与CAEmitterCell" class="headerlink" title="CAEmitterLayer与CAEmitterCell"></a>CAEmitterLayer与CAEmitterCell</h2><p>关于<strong>QuartzCore</strong>框架中的动画，<strong>CAEmitterLayer</strong>和<strong>CAEmitterCell</strong>类也在其中，所以咱们研究一下这个<strong>CAEmitterLayer</strong>和<strong>CAEmitterCell</strong>类所展现出来的粒子动画吧。</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_gif6.gif-small" height="533" width="300"></p>
-<p>首先来看看iOS粒子系统的入口CAEmitterLayer，我们通过它来配置整个粒子系统的基本属性，我们可以像平时使用普通的layer那样来操作CAEmitterLayer，创建它，将它加入layer层次以便显示，可以决定它的大小位置等等。除开CALayer继承来的接口，我们需要了解它的其它一些接口。</p>
-<p>CAEmitterLayer有几个特别的成员，下面会介绍到。首先说说第一个特殊的成员：emitterCells。</p>
+<p>首先来看看iOS粒子系统的入口CAEmitterLayer，我们通过它来配置整个粒子系统的基本属性，我们可以像平时使用普通的layer那样来操作CAEmitterLayer，创建它，将它加入layer层次以便显示，可以决定它的大小位置等等。</p>
 <p>在粒子系统中，CAEmitterLayer负责发射粒子（当然粒子也可以发射粒子，后面会讲到），而这些所谓的粒子，就是CAEmitterCell，我们可以将CAEmitterLayer比作是CAEmitterCell的工厂，它会按照你的设置来以不同的样式不断产生粒子，也就是CAEmitterCell。</p>
 <p>CAEmitterLayer决定了粒子从什么样的几何特性上发射出来，这个几何特性包括了位置，形状，大小。另外还有一些渲染相关的特性。另外的一些属性是CAEmitterLayer和CAEmiiterCell都有的，CAEmitterLayer的这些属性会作为CAEmitterCell相同属性取值的倍数，例如当CAEmitterCell的lifetime（生命周期）为1，其所属CAEmitterLayer的lifetime为2时，在其它参数选择默认值的情况下，这个CAEmitterCell的生命周期就是1*2=2秒，2秒后，CAEmitterCell就会从粒子系统中被移除。</p>
-<p>CAEmitterCell则决定了粒子自身的一些特征，例如速度，加速度，发射的范围，颜色等等。这些属性大多是以“中间值”搭配一个“范围”（A mean and a “cone”）的方式来表示的，例如velocity和velocityRange。表示CAEmitterCell的初始速度为velocity ± velocityRange。</p>
 <p>下面我们来熟悉一下CAEmitterLayer提供的属性能怎样控制粒子动画。首先需要读者了解的是几个控制粒子发射位置和形状的属性，CAEmitterLayer并不是杂乱无章地发射粒子的，它发射粒子时的位置，发射的面积和面积对应的几何图形都是可以配置的，可以是一个点，或者一个方形、圆形等等。下面的属性就给了我们设置这些几何特性的方法，这样解释可能十分晦涩，但是不要急躁，看下去就会渐渐明朗了。</p>
+<p>emitterPosition决定了粒子发射形状的中心点，而emitterSize则决定了粒子发射形状的大小，emitterShape是粒子从什么形状发射出来，它并不是表示粒子自己的形状。为什么叫做“发射形状”呢？ 看看emitterShape的枚举，你就会大概能明白了：</p>
+<table>
+<thead>
+<tr>
+<th>emitterShape值</th>
+<th>说明 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kCAEmitterLayerPoint</td>
+<td>点</td>
+</tr>
+<tr>
+<td>kCAEmitterLayerLine</td>
+<td>线</td>
+</tr>
+<tr>
+<td>kCAEmitterLayerRectangle</td>
+<td>矩形</td>
+</tr>
+<tr>
+<td>kCAEmitterLayerCircle</td>
+<td>圆</td>
+</tr>
+<tr>
+<td>kCAEmitterLayerCuboid</td>
+<td>立方体</td>
+</tr>
+<tr>
+<td>kCAEmitterLayerSphere</td>
+<td>球体</td>
+</tr>
+</tbody>
+</table>
+<p>emitterMode的作用是进一步决定发射的区域是在发射形状的哪一部份，当我们看到它的枚举时，也就能大概了解了：</p>
+<table>
+<thead>
+<tr>
+<th>emitterMode值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kCAEmitterLayerPoints</td>
+<td>顶点</td>
+</tr>
+<tr>
+<td>kCAEmitterLayerOutline</td>
+<td>轮廓，即边上</td>
+</tr>
+<tr>
+<td>kCAEmitterLayerSurface</td>
+<td>表面，即图形的面积内</td>
+</tr>
+<tr>
+<td>kCAEmitterLayerVolume</td>
+<td>容积，即3D图形的体积内</td>
+</tr>
+</tbody>
+</table>
+<p>CAEmitterCell则决定了粒子自身的一些特征，例如速度，加速度，发射的范围，颜色等等。这些属性大多是以“中间值”搭配一个“范围”（A mean and a “cone”）的方式来表示的，例如velocity和velocityRange。表示CAEmitterCell的初始速度为velocity ± velocityRange。</p>
+<p>下面来具体说明一下<strong>CAEmitterCell</strong>的重要属性。首先，<strong>CAEmitterCell</strong>遵循<strong>CAMediaTiming</strong>协议，所以<strong>CAMediaTiming</strong>里面的属性依然适用。然后，其他的重要属性如下表：</p>
+<table>
+<thead>
+<tr>
+<th>决定粒子的生命周期的属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>birthRate</td>
+<td>出生率，每秒能产生多少个粒子</td>
+</tr>
+<tr>
+<td>lifetime</td>
+<td>每个粒子的存活时长</td>
+</tr>
+<tr>
+<td>lifetimeRange</td>
+<td>粒子存活时长的浮动范围</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>决定粒子飞行方向的属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>emissionLatitude</td>
+<td>决定粒子与z轴的角度</td>
+</tr>
+<tr>
+<td>emissionLongitude</td>
+<td>决定粒子在x-y轴左边系中的角度</td>
+</tr>
+<tr>
+<td>emissionRange</td>
+<td>粒子角度浮动范围</td>
+</tr>
+<tr>
+<td>velocity</td>
+<td>初始速度</td>
+</tr>
+<tr>
+<td>velocityRange</td>
+<td>初始速度浮动范围</td>
+</tr>
+<tr>
+<td>xAcceleration、yAcceleration、zAcceleration</td>
+<td>x轴、y轴、z轴的加速度</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>决定粒子样式的属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scale</td>
+<td>粒子放缩比</td>
+</tr>
+<tr>
+<td>scaleRange</td>
+<td>粒子放缩比浮动范围 </td>
+</tr>
+<tr>
+<td>scaleSpeed</td>
+<td>粒子放缩比变化速度</td>
+</tr>
+<tr>
+<td>spin</td>
+<td>粒子的自身旋转</td>
+</tr>
+<tr>
+<td>spinRange</td>
+<td>粒子旋转浮动范围</td>
+</tr>
+<tr>
+<td>color</td>
+<td>初始化颜色</td>
+</tr>
+<tr>
+<td>redRange、greenRange、blueRange、alphaRange</td>
+<td>颜色RGBA产生的范围浮动</td>
+</tr>
+<tr>
+<td>redSpeed、greenSpeed、blueSpeed、alphaSpeed</td>
+<td>颜色RGBA变化的速度</td>
+</tr>
+<tr>
+<td>contents</td>
+<td>粒子内容，通常为CGImageRef</td>
+</tr>
+</tbody>
+</table>
 <h2 id="UIEfectDesigner"><a href="#UIEfectDesigner" class="headerlink" title="UIEfectDesigner"></a>UIEfectDesigner</h2><p>网上有个可以实时预览粒子动画效果的应用叫UIEfectDesigner，它提供了简易的界面让我们修改粒子系统的参数，并且可以实时展示修改的效果。但是它提供的参数设置并不是很完整，所以只能实现部分简单地效果，但已能完成大部分需求。另外，用它导出来的.ped文件能够使用轻量级三方框架<a href="https://github.com/icanzilb/UIEffectDesignerView" target="_blank" rel="external"><strong>UIEffectDesignerView</strong></a>直接生成编辑的粒子效果，方便，可视，快捷，免费。</p>
+<p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_img6.jpg" alt=""></p>
+<p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_gif7.gif-small" height="533" width="300"></p>
 <p>当然，还有一个参数更全的粒子编辑器<strong>Particle Creator</strong>，大家只要在<strong>AppStore</strong>上直接搜索<strong>CAEmitterLayer</strong>，就会得到这个应用的搜索结果，但是它是收费的。</p>
 <p>其他粒子编辑器也很多，但是大多数都是针对特有的游戏框架的(例如<strong>ParticleDesigner</strong>可供<strong>cocos2d</strong>使用，<strong>XCode</strong>自带的<strong>SpriteKit Particle</strong>供<strong>SpriteKit</strong>使用)。</p>
-<p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_gif7.gif-small" height="533" width="300"></p>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="layer隐式动画"><a href="#layer隐式动画" class="headerlink" title="layer隐式动画"></a>layer隐式动画</h2><p>每一个<strong>UIView</strong>都默认关联着一个<strong>CALayer</strong>，我们成这个<strong>layer</strong>为<strong>root layer</strong><br>所有的<strong>非root layer</strong>都存在默认的隐私动画，隐式动画默认为0.25秒。<br>对<strong>非root layer</strong>的部分属性进行修改时，会触发隐式动画。如果想去掉动画效果，可以加上以下代码：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">CATransaction</span> begin];</span><br><span class="line">[<span class="built_in">CATransaction</span> setDisableActions:<span class="literal">YES</span>];</span><br><span class="line">[<span class="built_in">CATransaction</span> commit];</span><br></pre></td></tr></table></figure>
-<h2 id="CADisplaylink"><a href="#CADisplaylink" class="headerlink" title="CADisplaylink"></a>CADisplaylink</h2><p>iOS屏幕刷新的帧率为59.98帧/秒，若想展示流畅的动画，可以利用<strong>CADisplaylink</strong>，每一帧都执行一次某个函数来达到流畅的动画效果。</p>
+<h2 id="CADisplaylink"><a href="#CADisplaylink" class="headerlink" title="CADisplaylink"></a>CADisplaylink</h2><p>iOS屏幕刷新的帧率接近60帧/秒，若想展示流畅的动画，可以利用<strong>CADisplaylink</strong>，每一帧都执行一次某个函数来达到流畅的动画效果。</p>
 <p><strong>CADisplaylink</strong> 与 <strong>NSTimer</strong> 有什么不同 ？</p>
 <p><strong>NSTimer</strong>的精确度就显得低了点，比如<strong>NSTimer</strong>的触发时间到的时候，<strong>runloop</strong>如果在阻塞状态，触发时间就会推迟到下一个<strong>runloop</strong>周期。并且 <strong>NSTimer</strong>新增了<strong>tolerance</strong>属性，让用户可以设置可以容忍的触发的时间的延迟范围。</p>
 <p><strong>CADisplaylink</strong>使用场合相对专一，适合做UI的不停重绘，比如自定义动画引擎或者视频播放的渲染。<strong>NSTimer</strong>的使用范围要广泛的多，各种需要单次或者循环定时处理的任务都可以使用。在UI相关的动画或者显示内容使用 <strong>CADisplaylink</strong>比起用<strong>NSTimer</strong>的好处就是我们不需要在格外关心屏幕的刷新频率了，因为它本身就是跟屏幕刷新同步的。</p>

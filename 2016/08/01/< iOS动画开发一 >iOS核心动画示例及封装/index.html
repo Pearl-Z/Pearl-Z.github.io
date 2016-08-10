@@ -84,14 +84,24 @@
 
 
 
-<meta name="description" content="CoreAnimation 介绍动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
-CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包含图形绘制，投影，动画的Objective–C类集合。它">
+<meta name="description" content="摘要：动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
+本文主要涉及到了以下章节的讲解：
+
+CoreAnimation 介绍
+CAAnimation动画
+转场动画(CATransition)
+属性动画(CAPropertyAnimation)* 基">
 <meta property="og:type" content="article">
 <meta property="og:title" content="< iOS动画开发一 > iOS核心动画(QuartzCore框架)示例及封装">
 <meta property="og:url" content="http://yoursite.com/2016/08/01/< iOS动画开发一 >iOS核心动画示例及封装/index.html">
 <meta property="og:site_name" content="谢琛舟的博客">
-<meta property="og:description" content="CoreAnimation 介绍动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
-CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包含图形绘制，投影，动画的Objective–C类集合。它">
+<meta property="og:description" content="摘要：动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
+本文主要涉及到了以下章节的讲解：
+
+CoreAnimation 介绍
+CAAnimation动画
+转场动画(CATransition)
+属性动画(CAPropertyAnimation)* 基">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img1.png">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img3.png">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img5.png">
@@ -103,13 +113,21 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif4.gif">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif5.gif">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif6.gif-small">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img7.png">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img8.png">
+<meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img9.png">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img6.jpg">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif7.gif-small">
-<meta property="og:updated_time" content="2016-08-09T11:40:43.000Z">
+<meta property="og:updated_time" content="2016-08-10T05:59:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="< iOS动画开发一 > iOS核心动画(QuartzCore框架)示例及封装">
-<meta name="twitter:description" content="CoreAnimation 介绍动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
-CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包含图形绘制，投影，动画的Objective–C类集合。它">
+<meta name="twitter:description" content="摘要：动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
+本文主要涉及到了以下章节的讲解：
+
+CoreAnimation 介绍
+CAAnimation动画
+转场动画(CATransition)
+属性动画(CAPropertyAnimation)* 基">
 <meta name="twitter:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img1.png">
 
 
@@ -360,12 +378,36 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
       
 
       
-        <h1 id="CoreAnimation-介绍"><a href="#CoreAnimation-介绍" class="headerlink" title="CoreAnimation 介绍"></a>CoreAnimation 介绍</h1><p>动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。</p>
-<p><strong>CoreAnimation</strong>(<strong>QuartzCore</strong>框架)是基于<strong>OpenGL</strong>和<strong>CoreGraphics</strong>封装的一套包含图形绘制，投影，动画的<strong>Objective–C</strong>类集合。它通过开发人员所熟悉的应用程序套件和<strong>Cocoa Touch</strong>视图架构的抽象分层模式，同时使用先进的合作效果提供了一套流畅的动画。</p>
+        <p><strong>摘要：</strong>动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。</p>
+<p>本文主要涉及到了以下章节的讲解：</p>
+<ul>
+<li><a href="#jump1.0">CoreAnimation 介绍</a></li>
+<li><a href="#jump2.0">CAAnimation动画</a><ul>
+<li><a href="#jump2.1">转场动画(CATransition)</a></li>
+<li><a href="#jump2.2">属性动画(CAPropertyAnimation)</a><pre><code>* 基本动画(CABasicAnimation)
+* 关键帧动画(CAKeyframeAnimation)
+</code></pre></li>
+<li>动画组(CAAnimationGroup)</li>
+</ul>
+</li>
+<li>粒子动画<ul>
+<li>CAEmitterLayer与CAEmitterCell</li>
+<li>粒子编辑器</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>layer隐式动画</li>
+<li>CADisplaylink</li>
+</ul>
+</li>
+<li>关于对CoreAnimation的示例以及封装</li>
+<li>参考文档<a id="more"></a>
+</li>
+</ul>
+<h1 id="CoreAnimation-介绍"><a href="#CoreAnimation-介绍" class="headerlink" title="CoreAnimation 介绍"></a>CoreAnimation 介绍</h1><p><strong>CoreAnimation</strong>(<strong>QuartzCore</strong>框架)是基于<strong>OpenGL</strong>和<strong>CoreGraphics</strong>封装的一套包含图形绘制，投影，动画的<strong>Objective–C</strong>类集合。它通过开发人员所熟悉的应用程序套件和<strong>Cocoa Touch</strong>视图架构的抽象分层模式，同时使用先进的合作效果提供了一套流畅的动画。</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_img1.png" alt=""></p>
 <div align="center"> CoreAnimation架构图 </div>
 
-<a id="more"></a>
 <p><strong>CoreAnimation</strong>类有以下分类：</p>
 <ul>
 <li>提供显示内容的图层类。</li>
@@ -760,10 +802,10 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <h1 id="粒子动画"><a href="#粒子动画" class="headerlink" title="粒子动画"></a>粒子动画</h1><h2 id="CAEmitterLayer与CAEmitterCell"><a href="#CAEmitterLayer与CAEmitterCell" class="headerlink" title="CAEmitterLayer与CAEmitterCell"></a>CAEmitterLayer与CAEmitterCell</h2><p>关于<strong>QuartzCore</strong>框架中的动画，<strong>CAEmitterLayer</strong>和<strong>CAEmitterCell</strong>类也在其中，所以咱们研究一下这个<strong>CAEmitterLayer</strong>和<strong>CAEmitterCell</strong>类所展现出来的粒子动画吧。</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_gif6.gif-small" height="533" width="300"></p>
 <p>首先来看看iOS粒子系统的入口CAEmitterLayer，我们通过它来配置整个粒子系统的基本属性，我们可以像平时使用普通的layer那样来操作CAEmitterLayer，创建它，将它加入layer层次以便显示，可以决定它的大小位置等等。</p>
-<p>在粒子系统中，CAEmitterLayer负责发射粒子（当然粒子也可以发射粒子，后面会讲到），而这些所谓的粒子，就是CAEmitterCell，我们可以将CAEmitterLayer比作是CAEmitterCell的工厂，它会按照你的设置来以不同的样式不断产生粒子，也就是CAEmitterCell。</p>
+<p>在粒子系统中，CAEmitterLayer负责发射粒子（当然粒子也可以发射粒子，后面会讲到），而这些所谓的粒子，就是CAEmitterCell，我们可以将CAEmitterLayer比作是CAEmitterCell的工厂，它会按照你的设置来以不同的样式不断产生粒子。</p>
 <p>CAEmitterLayer决定了粒子从什么样的几何特性上发射出来，这个几何特性包括了位置，形状，大小。另外还有一些渲染相关的特性。另外的一些属性是CAEmitterLayer和CAEmiiterCell都有的，CAEmitterLayer的这些属性会作为CAEmitterCell相同属性取值的倍数，例如当CAEmitterCell的lifetime（生命周期）为1，其所属CAEmitterLayer的lifetime为2时，在其它参数选择默认值的情况下，这个CAEmitterCell的生命周期就是1*2=2秒，2秒后，CAEmitterCell就会从粒子系统中被移除。</p>
-<p>下面我们来熟悉一下CAEmitterLayer提供的属性能怎样控制粒子动画。首先需要读者了解的是几个控制粒子发射位置和形状的属性，CAEmitterLayer并不是杂乱无章地发射粒子的，它发射粒子时的位置，发射的面积和面积对应的几何图形都是可以配置的，可以是一个点，或者一个方形、圆形等等。下面的属性就给了我们设置这些几何特性的方法，这样解释可能十分晦涩，但是不要急躁，看下去就会渐渐明朗了。</p>
-<p>emitterPosition决定了粒子发射形状的中心点，而emitterSize则决定了粒子发射形状的大小，emitterShape是粒子从什么形状发射出来，它并不是表示粒子自己的形状。为什么叫做“发射形状”呢？ 看看emitterShape的枚举，你就会大概能明白了：</p>
+<p>下面我们来熟悉一下CAEmitterLayer提供的属性能怎样控制粒子动画。首先需要读者了解的是几个控制粒子发射位置和形状的属性，CAEmitterLayer并不是杂乱无章地发射粒子的，它发射粒子时的位置，发射的面积和面积对应的几何图形都是可以配置的，可以是一个点，或者一个方形、圆形等等。下面的属性就给了我们设置这些几何特性的方法。</p>
+<p><strong>emitterPosition</strong>决定了粒子发射形状的中心点，而<strong>emitterSize</strong>则决定了粒子发射形状的大小，<strong>emitterShape</strong>是粒子从什么形状发射出来，它并不是表示粒子自己的形状。为什么叫做“发射形状”呢？ 看看<strong>emitterShape</strong>的枚举，你就会大概能明白了：</p>
 <table>
 <thead>
 <tr>
@@ -798,7 +840,7 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 </tr>
 </tbody>
 </table>
-<p>emitterMode的作用是进一步决定发射的区域是在发射形状的哪一部份，当我们看到它的枚举时，也就能大概了解了：</p>
+<p><strong>emitterMode</strong>的作用是进一步决定发射的区域是在发射形状的哪一部份，当我们看到它的枚举时，也就能大概了解了：</p>
 <table>
 <thead>
 <tr>
@@ -825,7 +867,7 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 </tr>
 </tbody>
 </table>
-<p>CAEmitterCell则决定了粒子自身的一些特征，例如速度，加速度，发射的范围，颜色等等。这些属性大多是以“中间值”搭配一个“范围”（A mean and a “cone”）的方式来表示的，例如velocity和velocityRange。表示CAEmitterCell的初始速度为velocity ± velocityRange。</p>
+<p><strong>CAEmitterCell</strong>则决定了粒子自身的一些特征，例如速度，加速度，发射的范围，颜色等等。这些属性大多是以“中间值”搭配一个“范围”的方式来表示的，例如<strong>velocity</strong>和<strong>velocityRange</strong>。表示<strong>CAEmitterCell</strong>的初始速度为<strong>velocity</strong> ± <strong>velocityRange</strong>。</p>
 <p>下面来具体说明一下<strong>CAEmitterCell</strong>的重要属性。首先，<strong>CAEmitterCell</strong>遵循<strong>CAMediaTiming</strong>协议，所以<strong>CAMediaTiming</strong>里面的属性依然适用。然后，其他的重要属性如下表：</p>
 <table>
 <thead>
@@ -883,6 +925,12 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 </tr>
 </tbody>
 </table>
+<p>emissionLongtitude决定了粒子飞行方向跟水平坐标轴（x轴）之间的夹角，默认是0，即沿着x轴向右飞行。顺时针方向是正向，下图就简单展示了emissionLongtitude值表示的方向<br><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_img7.png" alt=""></p>
+<p>另外，emissionRange则决定了粒子的发散范围，同样是一个弧度值（radians），表示粒子在沿着emissionLongtitude方向所形成的顶角为2倍emissionRange的圆锥范围内发散。例如emisstionLongtitude设置为-PI/2，让粒子向上飞行，并且让emissionRange为PI／4。那么按照上面的说法，我们应该能得到一个向上的，并且顶角为2 * PI／4的圆锥，结果应该如下图：<br><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_img8.png" alt=""></p>
+<p>下面我们也来简单了解一下CAEmitterCell的这一个特性emitterCells。</p>
+<p>CAEmitterCell的emitterCells跟CAEmitterLayer的一样，也是一个CAEmitterCell的队列。我们基本可以按照操作CAEmitterLayer的emitterCells一样来设置我们粒子的emitterCells。只是有几点内容是需要我们留意一下的。为了方便描述，我们将从粒子上发射出来的粒子称作subCell吧。</p>
+<p>首先，CAEmitterCell也是服从CAMediatiming协议的，我们通过控制subCell的beginTime来控制subCell的出现时机。当你的subCell的beginTime为0时，表示你的粒子从CAEmitterLayer上发射出来后就会立即开始发射subCell。另外，无论粒子是从什么样的形状上发射出来的，当它要发射subCell的时候，subCell总是从点形状上由父粒子的中心发射出来的。并且subCell的emissionLongtitude属性是以父粒子的emissionLongtitude为参照的，下面的图例中，红色的箭头表示了上述例子中，subCell的emissionLongtitude的取值，大家可以看到垂直向下的红色箭头的取值为0 ，因为垂直向下就是subCell的父粒子的发射方向。所以我们的subCell的应该将emissionLongtitude设置为3*PI/2，才能达到向右边飞行的效果。<br><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_img9.png" alt="">        </p>
+<p>当然，还有一些属性是决定粒子的样式的，比如缩放、旋转、颜色变化等，详见如下：</p>
 <table>
 <thead>
 <tr>
@@ -929,11 +977,13 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 </tr>
 </tbody>
 </table>
-<h2 id="UIEfectDesigner"><a href="#UIEfectDesigner" class="headerlink" title="UIEfectDesigner"></a>UIEfectDesigner</h2><p>网上有个可以实时预览粒子动画效果的应用叫UIEfectDesigner，它提供了简易的界面让我们修改粒子系统的参数，并且可以实时展示修改的效果。但是它提供的参数设置并不是很完整，所以只能实现部分简单地效果，但已能完成大部分需求。另外，用它导出来的.ped文件能够使用轻量级三方框架<a href="https://github.com/icanzilb/UIEffectDesignerView" target="_blank" rel="external"><strong>UIEffectDesignerView</strong></a>直接生成编辑的粒子效果，方便，可视，快捷，免费。</p>
+<p>下面附上上面gif粒子图的源码（请忽略笔者的美术创作能力）：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CAEmitterCell</span> *cell = [[<span class="built_in">CAEmitterCell</span> alloc] init];</span><br><span class="line">cell.contents = (__bridge <span class="keyword">id</span>)[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"spark.png"</span>].CGImage;</span><br><span class="line">cell.birthRate = <span class="number">500</span>;</span><br><span class="line">cell.lifetime = <span class="number">0.5</span>;</span><br><span class="line">cell.lifetimeRange = <span class="number">0.3</span>;</span><br><span class="line">cell.color = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">1</span> green:<span class="number">0.5</span> blue:<span class="number">0.1</span> alpha:<span class="number">1.0</span>].CGColor;</span><br><span class="line">cell.alphaSpeed = <span class="number">-0.2</span>;</span><br><span class="line">cell.velocity = <span class="number">500</span>;</span><br><span class="line">cell.velocityRange = <span class="number">100</span>;</span><br><span class="line">cell.emissionRange = M_PI/<span class="number">20</span>;</span><br><span class="line">cell.emissionLongitude = M_PI*<span class="number">7</span>/<span class="number">4</span>;</span><br><span class="line">    </span><br><span class="line"><span class="built_in">CAEmitterCell</span> *subCell = [[<span class="built_in">CAEmitterCell</span> alloc] init];</span><br><span class="line">subCell.contents = (__bridge <span class="keyword">id</span>)[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"spark.png"</span>].CGImage;</span><br><span class="line">subCell.birthRate = <span class="number">5</span>;</span><br><span class="line">subCell.lifetime = <span class="number">0.5</span>;</span><br><span class="line">subCell.lifetimeRange = <span class="number">0.3</span>;</span><br><span class="line">subCell.color = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">255</span>/<span class="number">255.0</span> green:<span class="number">106</span>/<span class="number">255.0</span> blue:<span class="number">106</span>/<span class="number">255.0</span> alpha:<span class="number">1.0</span>].CGColor;</span><br><span class="line">subCell.velocity = <span class="number">0</span>;</span><br><span class="line">subCell.velocityRange = <span class="number">50</span>;</span><br><span class="line">subCell.emissionRange = M_PI;</span><br><span class="line">subCell.emissionLongitude = -M_PI/<span class="number">4</span>;</span><br><span class="line">    </span><br><span class="line">cell.emitterCells = @[subCell];</span><br><span class="line">    </span><br><span class="line"><span class="built_in">CAEmitterLayer</span> *emitter = [<span class="built_in">CAEmitterLayer</span> layer];</span><br><span class="line">emitter.frame = <span class="keyword">self</span>.view.bounds;</span><br><span class="line">emitter.masksToBounds = <span class="literal">YES</span>;</span><br><span class="line">emitter.renderMode = kCAEmitterLayerAdditive;</span><br><span class="line">emitter.emitterPosition = <span class="built_in">CGPointMake</span>(<span class="number">200</span>, <span class="number">260</span>);</span><br><span class="line">emitter.emitterCells = @[cell];</span><br><span class="line">emitter.emitterShape = kCAEmitterLayerCircle;</span><br><span class="line">emitter.emitterSize = <span class="built_in">CGSizeMake</span>(<span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line">emitter.emitterMode = kCAEmitterLayerOutline;</span><br><span class="line">emitter.velocity = <span class="number">1.0</span>;</span><br><span class="line">[<span class="keyword">self</span>.view.layer addSublayer:emitter];</span><br></pre></td></tr></table></figure>
+<h2 id="粒子编辑器"><a href="#粒子编辑器" class="headerlink" title="粒子编辑器"></a>粒子编辑器</h2><p>网上有个可以实时预览粒子动画效果的应用叫<strong>UIEfectDesigner</strong>，它提供了简易的界面让我们修改粒子系统的参数，并且可以实时展示修改的效果。它提供的参数设置并不是很完整，所以只能实现部分简单地效果，但已能完成大部分需求。另外，用它导出来的.ped文件能够使用轻量级三方框架<a href="https://github.com/icanzilb/UIEffectDesignerView" target="_blank" rel="external"><strong>UIEffectDesignerView</strong></a>直接生成编辑的粒子效果，方便，可视，快捷，免费。</p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_img6.jpg" alt=""></p>
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_gif7.gif-small" height="533" width="300"></p>
 <p>当然，还有一个参数更全的粒子编辑器<strong>Particle Creator</strong>，大家只要在<strong>AppStore</strong>上直接搜索<strong>CAEmitterLayer</strong>，就会得到这个应用的搜索结果，但是它是收费的。</p>
-<p>其他粒子编辑器也很多，但是大多数都是针对特有的游戏框架的(例如<strong>ParticleDesigner</strong>可供<strong>cocos2d</strong>使用，<strong>XCode</strong>自带的<strong>SpriteKit Particle</strong>供<strong>SpriteKit</strong>使用)。</p>
+<p>其他粒子编辑器也很多，但是大多数都是针对特有的游戏框架的(例如<strong>ParticleDesigner</strong>可供<strong>cocos2d</strong>使用，<strong>XCode</strong>自带的<strong>SpriteKit Particle</strong>供<strong>SpriteKit</strong>使用)。这些编辑器导出的文件记录的参数方式各有不同，若要使用CAEmitterLayer直接呈现出来，可能需要寻找或者创作转换的框架了，当然还有最笨的方法，就是一个一个按照配置的参数赋值属性了。</p>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="layer隐式动画"><a href="#layer隐式动画" class="headerlink" title="layer隐式动画"></a>layer隐式动画</h2><p>每一个<strong>UIView</strong>都默认关联着一个<strong>CALayer</strong>，我们成这个<strong>layer</strong>为<strong>root layer</strong><br>所有的<strong>非root layer</strong>都存在默认的隐私动画，隐式动画默认为0.25秒。<br>对<strong>非root layer</strong>的部分属性进行修改时，会触发隐式动画。如果想去掉动画效果，可以加上以下代码：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">CATransaction</span> begin];</span><br><span class="line">[<span class="built_in">CATransaction</span> setDisableActions:<span class="literal">YES</span>];</span><br><span class="line">[<span class="built_in">CATransaction</span> commit];</span><br></pre></td></tr></table></figure>
 <h2 id="CADisplaylink"><a href="#CADisplaylink" class="headerlink" title="CADisplaylink"></a>CADisplaylink</h2><p>iOS屏幕刷新的帧率接近60帧/秒，若想展示流畅的动画，可以利用<strong>CADisplaylink</strong>，每一帧都执行一次某个函数来达到流畅的动画效果。</p>
@@ -1129,7 +1179,7 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CoreAnimation-介绍"><span class="nav-number">1.</span> <span class="nav-text">CoreAnimation 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CAAnimation动画"><span class="nav-number">2.</span> <span class="nav-text">CAAnimation动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#转场动画-CATransition"><span class="nav-number">2.1.</span> <span class="nav-text">转场动画(CATransition)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性动画-CAPropertyAnimation"><span class="nav-number">2.2.</span> <span class="nav-text">属性动画(CAPropertyAnimation)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本动画-CABasicAnimation"><span class="nav-number">2.2.1.</span> <span class="nav-text">基本动画(CABasicAnimation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键帧动画-CAKeyframeAnimation"><span class="nav-number">2.2.2.</span> <span class="nav-text">关键帧动画(CAKeyframeAnimation)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画组-CAAnimationGroup"><span class="nav-number">2.3.</span> <span class="nav-text">动画组(CAAnimationGroup)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#粒子动画"><span class="nav-number">3.</span> <span class="nav-text">粒子动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAEmitterLayer与CAEmitterCell"><span class="nav-number">3.1.</span> <span class="nav-text">CAEmitterLayer与CAEmitterCell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIEfectDesigner"><span class="nav-number">3.2.</span> <span class="nav-text">UIEfectDesigner</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#layer隐式动画"><span class="nav-number">4.1.</span> <span class="nav-text">layer隐式动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CADisplaylink"><span class="nav-number">4.2.</span> <span class="nav-text">CADisplaylink</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于对CoreAnimation的示例以及封装"><span class="nav-number">5.</span> <span class="nav-text">关于对CoreAnimation的示例以及封装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">6.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CoreAnimation-介绍"><span class="nav-number">1.</span> <span class="nav-text">CoreAnimation 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CAAnimation动画"><span class="nav-number">2.</span> <span class="nav-text">CAAnimation动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#转场动画-CATransition"><span class="nav-number">2.1.</span> <span class="nav-text">转场动画(CATransition)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性动画-CAPropertyAnimation"><span class="nav-number">2.2.</span> <span class="nav-text">属性动画(CAPropertyAnimation)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本动画-CABasicAnimation"><span class="nav-number">2.2.1.</span> <span class="nav-text">基本动画(CABasicAnimation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键帧动画-CAKeyframeAnimation"><span class="nav-number">2.2.2.</span> <span class="nav-text">关键帧动画(CAKeyframeAnimation)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画组-CAAnimationGroup"><span class="nav-number">2.3.</span> <span class="nav-text">动画组(CAAnimationGroup)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#粒子动画"><span class="nav-number">3.</span> <span class="nav-text">粒子动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAEmitterLayer与CAEmitterCell"><span class="nav-number">3.1.</span> <span class="nav-text">CAEmitterLayer与CAEmitterCell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#粒子编辑器"><span class="nav-number">3.2.</span> <span class="nav-text">粒子编辑器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#layer隐式动画"><span class="nav-number">4.1.</span> <span class="nav-text">layer隐式动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CADisplaylink"><span class="nav-number">4.2.</span> <span class="nav-text">CADisplaylink</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于对CoreAnimation的示例以及封装"><span class="nav-number">5.</span> <span class="nav-text">关于对CoreAnimation的示例以及封装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">6.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
             
           </div>
         </section>

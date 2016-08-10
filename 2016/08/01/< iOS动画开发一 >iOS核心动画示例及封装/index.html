@@ -108,7 +108,7 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img9.png">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_img6.jpg">
 <meta property="og:image" content="http://o84zlfx0y.bkt.clouddn.com/blog2_gif7.gif-small">
-<meta property="og:updated_time" content="2016-08-10T06:12:00.000Z">
+<meta property="og:updated_time" content="2016-08-10T06:20:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="< iOS动画开发一 > iOS核心动画(QuartzCore框架)示例及封装">
 <meta name="twitter:description" content="CoreAnimation 介绍动画是当今用户界面的关键因素。当使用核心动画的时候，动画是自动完成的。没有动画的循环和计数器。你的应用程序不负负责重绘，也不负责跟踪动画的当前状态。动画在独立线程里面自动执行，没有和你的应用程序交互。
@@ -752,9 +752,9 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 </tr>
 </tbody>
 </table>
-<p><strong>keyTimes</strong>：一个包含若干NSNumber对象值的数组，用来区分动画的分割时机。值得注意的是，这些NSNumber对象的浮点型值在0.0~1.0之间。里面的值后一个比前一个要大或者相等。最好的结果是这个数组中的值和values里面的值或者path控制的值对应，否则可能会出现不了你想要的结果。属性为应用在每一关键帧指定应用到每一个关键帧上的计时器。该属性只在calculationMode属性被设置为kCAAnimationLinear，kCAAnimaitonDiscrete，kCAAnimationCubic时被使用。它不使用在节奏动画中。keyTimes定义了应用在每一关键帧的时间点。所有中间值的定时由定时函数控制，定时函数允许你对各个部分应用缓入或缓出曲线定时。如果你不指定任何定时函数，动画将会是线性的。</p>
+<p><strong>keyTimes</strong>：一个包含若干<strong>NSNumber</strong>对象值的数组，用来区分动画的分割时机。值得注意的是，这些<strong>NSNumber</strong>对象的浮点型值在0.0~1.0之间。里面的值后一个比前一个要大或者相等。最好的结果是这个数组中的值和<strong>values</strong>里面的值或者<strong>path</strong>控制的值对应，否则可能会出现不了你想要的结果。属性为应用在每一关键帧指定应用到每一个关键帧上的计时器。该属性只在<strong>calculationMode</strong>属性被设置为<strong>kCAAnimationLinear</strong>，<strong>kCAAnimaitonDiscrete</strong>，<strong>kCAAnimationCubic</strong>时被使用。它不使用在节奏动画中。<strong>keyTimes</strong>定义了应用在每一关键帧的时间点。所有中间值的定时由定时函数控制，定时函数允许你对各个部分应用缓入或缓出曲线定时。如果你不指定任何定时函数，动画将会是线性的。</p>
 <p><strong>timingFunctions</strong>：时间轴的数组。如果<strong>values</strong>数组个数为n，那么<strong>timingFunctions</strong>数组个数应该为n-1。每个时间轴作用于<strong>values</strong>中，两个值之间的过度。</p>
-<p><strong>rotationMode</strong>：设置<strong>rotationMode</strong>可以让layer方向自动跟着路径的切线方向旋转。</p>
+<p><strong>rotationMode</strong>：设置<strong>rotationMode</strong>可以让<strong>layer</strong>方向自动跟着路径的切线方向旋转。</p>
 <p>以下代码提供了一个简单的<strong>CAKeyframeAnimation</strong>动画：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CAKeyframeAnimation</span> *moveAnimation = [<span class="built_in">CAKeyframeAnimation</span> animationWithKeyPath:<span class="string">@"position"</span>];</span><br><span class="line">moveAnimation.path = path.CGPath;</span><br><span class="line">moveAnimation.timingFunction = [<span class="built_in">CAMediaTimingFunction</span> functionWithName:kCAMediaTimingFunctionEaseInEaseOut];</span><br><span class="line">moveAnimation.duration = <span class="number">3.0</span>;</span><br><span class="line">moveAnimation.rotationMode = kCAAnimationRotateAuto; <span class="comment">// 方向跟随路径旋转</span></span><br><span class="line">moveAnimation.removedOnCompletion = <span class="literal">NO</span>;</span><br><span class="line">moveAnimation.fillMode = kCAFillModeBoth;</span><br><span class="line">moveAnimation.calculationMode = kCAAnimationPaced; <span class="comment">// 均匀进行</span></span><br><span class="line">[<span class="keyword">self</span>.layer addAnimation:moveAnimation forKey:<span class="string">@"ZZKeyframeAnimationPath"</span>];</span><br></pre></td></tr></table></figure>
 <h2 id="动画组-CAAnimationGroup"><a href="#动画组-CAAnimationGroup" class="headerlink" title="动画组(CAAnimationGroup)"></a>动画组(CAAnimationGroup)</h2><p>先来看看<strong>CAAnimationGroup</strong>的动画效果：</p>
@@ -765,7 +765,7 @@ CoreAnimation(QuartzCore框架)是基于OpenGL和CoreGraphics封装的一套包�
 <p><img src="http://o84zlfx0y.bkt.clouddn.com/blog2_gif6.gif-small" height="533" width="300"></p>
 <p>首先来看看iOS粒子系统的入口<strong>CAEmitterLayer</strong>，我们通过它来配置整个粒子系统的基本属性，我们可以像平时使用普通的<strong>layer</strong>那样来操作<strong>CAEmitterLayer</strong>，创建它，将它加入<strong>layer</strong>层次以便显示，可以决定它的大小位置等等。</p>
 <p>在粒子系统中，<strong>CAEmitterLayer</strong>负责发射粒子（当然粒子也可以发射粒子，后面会讲到），而这些所谓的粒子，就是<strong>CAEmitterCell</strong>，我们可以将<strong>CAEmitterLayer</strong>比作是<strong>CAEmitterCell</strong>的工厂，它会按照你的设置来以不同的样式不断产生粒子。</p>
-<p><strong>CAEmitterLayer</strong>决定了粒子从什么样的几何特性上发射出来，这个几何特性包括了位置，形状，大小。另外还有一些渲染相关的特性。另外的一些属性是<strong>CAEmitterLayer</strong>和<strong>CAEmiiterCell</strong>都有的，<strong>CAEmitterLayer</strong>的这些属性会作为<strong>CAEmitterCell</strong>相同属性取值的倍数，例如当<strong>CAEmitterCell</strong>的<strong>lifetime</strong>（生命周期）为1，其所属<strong>CAEmitterLayer</strong>的<strong>lifetime</strong>为2时，在其它参数选择默认值的情况下，这个<strong>CAEmitterCell</strong>的生命周期就是1<em>2=2秒，2秒后，<em>*CAEmitterCell</em></em>就会从粒子系统中被移除。</p>
+<p><strong>CAEmitterLayer</strong>决定了粒子从什么样的几何特性上发射出来，这个几何特性包括了位置，形状，大小。另外还有一些渲染相关的特性。另外的一些属性是<strong>CAEmitterLayer</strong>和<strong>CAEmiiterCell</strong>都有的，<strong>CAEmitterLayer</strong>的这些属性会作为<strong>CAEmitterCell</strong>相同属性取值的倍数，例如当<strong>CAEmitterCell</strong>的<strong>lifetime</strong>（生命周期）为1，其所属<strong>CAEmitterLayer</strong>的<strong>lifetime</strong>为2时，在其它参数选择默认值的情况下，这个<strong>CAEmitterCell</strong>的生命周期就是 1 <em> 2 = 2 秒，2秒后，<em>*CAEmitterCell</em></em>就会从粒子系统中被移除。</p>
 <p>下面我们来熟悉一下<strong>CAEmitterLayer</strong>提供的属性能怎样控制粒子动画。首先需要读者了解的是几个控制粒子发射位置和形状的属性，<strong>CAEmitterLayer</strong>并不是杂乱无章地发射粒子的，它发射粒子时的位置，发射的面积和面积对应的几何图形都是可以配置的，可以是一个点，或者一个方形、圆形等等。下面的属性就给了我们设置这些几何特性的方法。</p>
 <p><strong>emitterPosition</strong>决定了粒子发射形状的中心点，而<strong>emitterSize</strong>则决定了粒子发射形状的大小，<strong>emitterShape</strong>是粒子从什么形状发射出来，它并不是表示粒子自己的形状。为什么叫做“发射形状”呢？ 看看<strong>emitterShape</strong>的枚举，你就会大概能明白了：</p>
 <table>
